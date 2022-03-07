@@ -1,5 +1,7 @@
 import 'dart:async';
+import 'package:q_market/views/address/search_address_screen.dart';
 import 'package:q_market/views/screens/home/home.dart';
+import 'package:q_market/views/screens/main_screen.dart';
 import 'package:sliding_up_panel/sliding_up_panel.dart';
 
 import 'package:flutter/material.dart';
@@ -9,8 +11,12 @@ import 'package:location/location.dart';
 import 'package:q_market/controllers/address_location_controller.dart';
 
 import '../../Assistants/assistantMethods.dart';
+import '../../Assistants/globals.dart';
+import '../widgets/search_area_des.dart';
 
 class AddressOnMap extends StatefulWidget {
+  const AddressOnMap({Key? key}) : super(key: key);
+
   @override
   State<AddressOnMap> createState() => AddressOnMapState();
 }
@@ -18,14 +24,16 @@ class AddressOnMap extends StatefulWidget {
 class AddressOnMapState extends State<AddressOnMap> {
   Completer<GoogleMapController> _controller = Completer();
   PanelController panelController = PanelController();
-
+  GoogleMapController? newGoogleMapController;
+  double bottomPaddingOfMap = 0;
+  Color myHexColor = Color(0xff01a9a9);
   var assistantMethods = AssistantMethods();
+
   LatLng myCurrentLoc = LatLng(0.0,0.0 );
-  static  CameraPosition _kGooglePlex = CameraPosition(
+  static  CameraPosition _inialPointCamera = CameraPosition(
     target: LatLng( 29.2556835, 47.9234983),
     zoom: 14.4746,
   );
-  double? currentLat =0.0;
      CameraPosition _kLake =  CameraPosition(
       bearing: 192.8334901395799,
       target: LatLng( 29.2556835,  47.9234983),
@@ -44,15 +52,29 @@ class AddressOnMapState extends State<AddressOnMap> {
     assistantMethods.searchCoordinateAddress(latLng, context, false);
    addressController.updateCurrentLoc(latLng);
   }
+
+  //
+  //
+  var location = Location();
+
+  void locatePosition() async {
+
+    LatLng latLngPosition =
+    LatLng(addressController.areaLoc.value.latitude,addressController.areaLoc.value.longitude);
+    CameraPosition cameraPosition =
+    CameraPosition(target: latLngPosition, zoom: 15);
+    final GoogleMapController controller = await _controller.future;
+    controller.animateCamera(CameraUpdate.newCameraPosition(cameraPosition));
+
+  }
   @override
   Widget build(BuildContext context) {
     final screenSize = Get.size;
-    print('object');
     return Scaffold(
        body:SlidingUpPanel(
          controller: panelController,
-         maxHeight: screenSize.height * 0.1 ,
-         minHeight: screenSize.height * 0.1 ,
+         maxHeight: screenSize.height * 0.2-10 ,
+         minHeight: screenSize.height * 0.2-40 ,
            panelBuilder: (scrollContainer) =>AnimatedSize(duration: 200.milliseconds,
              curve: Curves.bounceIn,
              child:Column(
@@ -71,39 +93,57 @@ class AddressOnMapState extends State<AddressOnMap> {
                      ),
                    ),
                  ),
+                 ElevatedButton(onPressed: (){
+                   Navigator.push(context, MaterialPageRoute(builder: (context)=>MainScreen()));
+
+                 }, child: Text('CONFIRM LOCATION',style: TextStyle(fontWeight: FontWeight.bold,fontSize: 15),),
+                   style: ElevatedButton.styleFrom(
+                       maximumSize: Size(220,300),
+                       minimumSize: Size(220, 40),primary: myHexColor1,
+                       onPrimary: Colors.white,
+                       alignment: Alignment.center
+                   ),
+                 )
                ],
              ) ,
            ),body:
          Stack(
            fit: StackFit.expand,
            children: [
-             Obx(()=> GoogleMap(
-                 markers: {
-                   Marker(markerId: MarkerId('a'),position: addressController.myCurrentLoc.value,onTap: (){
-                     print('object');
-                   })
-                 },
-               padding: EdgeInsets.only(bottom: 66),
-                 mapType: MapType.satellite,
-                 mapToolbarEnabled: true,
-                 myLocationEnabled: true,
-               myLocationButtonEnabled: true,
-                 initialCameraPosition: _kGooglePlex,
-               onCameraIdle: (){
-                   print('onCameraIdle');
-               },
 
-                 onCameraMove: (camera){
-                   updateCurrentLocMarker(camera.target);
-
-                   print(camera.target.latitude);
+            Obx(()=> GoogleMap(
+                   markers: {
+                     Marker(markerId: MarkerId('a'),position: addressController.myCurrentLoc.value,onTap: (){
+                       print('object');
+                     })
+                   },
+                 padding: EdgeInsets.only(bottom:110,top: 25),
+                   mapType: MapType.satellite,
+                   mapToolbarEnabled: true,
+                   myLocationEnabled: true,
+                 myLocationButtonEnabled: true,
+                   initialCameraPosition: _inialPointCamera,
+                 onCameraIdle: (){
+                     print('onCameraIdle');
                  },
 
-                 onMapCreated: (GoogleMapController controller) {
-                   _controller.complete(controller);
-                 },
-               ),
-             ),
+                   onCameraMove: (camera){
+                     updateCurrentLocMarker(camera.target);
+
+                     print(camera.target.latitude);
+                   },
+
+                   onMapCreated: (GoogleMapController controller) {
+                     _controller.complete(controller);
+                     newGoogleMapController = controller;
+                     setState(() {
+                       bottomPaddingOfMap = 320.0;
+                     });
+                     locatePosition();
+                   },
+                 ),
+            ),
+
              Positioned(
                top: 35.0,
                left: 22.0,
@@ -136,16 +176,22 @@ class AddressOnMapState extends State<AddressOnMap> {
                    ),
                  ),
                ),
+            Positioned(
+                top: 90,
 
+                width: screenSize.width ,
+
+                child: InkWell(
+                    onTap: () {
+
+                      Navigator.pushReplacement(context, MaterialPageRoute(builder: (context)=>const SearchAddressScreen()));
+
+                    },
+                    child: searchAreaDes()))
            ],
          ),
        ),
 
-      // floatingActionButton: FloatingActionButton.extended(
-      //   onPressed: _goToTheLake,
-      //   label: Text('To the lake!'),
-      //   icon: Icon(Icons.directions_boat),
-      // ),
     );
   }
 

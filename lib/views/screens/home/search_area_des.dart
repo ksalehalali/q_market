@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 
+import '../../../Assistants/globals.dart';
+
 class SearchAreaDesign extends StatefulWidget {
   const SearchAreaDesign({Key? key}) : super(key: key);
 
@@ -17,9 +19,11 @@ class _SearchAreaDesignState extends State<SearchAreaDesign> {
       child: Padding(
         padding: EdgeInsets.symmetric(horizontal: 12, vertical: 6),
         child: Container(
-          height: 34,
+          height: 38,
           // width: 330,
           decoration: BoxDecoration(
+              border: Border.all(width: 0.5,color: myHexColor),
+
               borderRadius: BorderRadius.circular(5), color: Colors.blue[50]),
           child: Center(
             child: Row(

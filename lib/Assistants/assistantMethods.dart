@@ -20,6 +20,7 @@ class AssistantMethods {
      box.write('address', res['features'][0]['place_name']);
      addressController.updatePinAddress(res['features'][0]['place_name']);
     } else {
+      print(res);
       print("get address failed");
     }
 

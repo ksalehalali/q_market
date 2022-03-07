@@ -46,6 +46,8 @@ dependencies:
   location:
   latlong2:
   sliding_up_panel:
+  geolocator:
+  adobe_xd:
 
 
 dev_dependencies:

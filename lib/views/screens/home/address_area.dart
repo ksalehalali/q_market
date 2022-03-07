@@ -11,17 +11,12 @@ Widget addressHomeScreen(MediaQueryData screenSize) {
         mainAxisAlignment: MainAxisAlignment.start,
         crossAxisAlignment: CrossAxisAlignment.center,
         children: <Widget>[
-
-          SizedBox(
-            width: screenSize.size.width *0.1 -30,
-          ),
           const Icon(Icons.location_on_outlined),
-          SizedBox(width:           screenSize.size.width *0.1 -30,),
+          //SizedBox(width: screenSize.size.width *0.1 -30,),
           Row(
             children: [
-
               SizedBox(
-                width: Get.size.width -90,
+                width: Get.size.width -80,
                 height: 16,
                 child: RichText(text:  TextSpan(
                   children: [
@@ -36,7 +31,10 @@ Widget addressHomeScreen(MediaQueryData screenSize) {
                   ]
                 )),
               ),
-               Icon(FontAwesomeIcons.arrowAltCircleDown,color: Colors.blue[900],size: 16,),
+               Padding(
+                 padding:  EdgeInsets.zero,
+                 child: Icon(FontAwesomeIcons.angleRight,color: Colors.blue[900],size: 16,),
+               ),
 
             ],
           ),

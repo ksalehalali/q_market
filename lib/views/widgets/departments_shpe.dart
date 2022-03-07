@@ -13,19 +13,15 @@ class DepartmentShapeTile extends StatelessWidget {
     return Column(
       children: <Widget>[
         Container(
-          height: 75,
-          width: 75,
+          height: 62,
+          width: 62,
           padding:  EdgeInsets.all(1),
           decoration: const BoxDecoration(
             color: Colors.grey,
-            borderRadius: BorderRadius.only(
-              topLeft: Radius.circular(10),
-              topRight: Radius.circular(10),
-              bottomRight: Radius.circular(10),
-            ),
+            borderRadius: BorderRadius.all(Radius.circular(100)),
           ),
           child: ClipRRect(
-            borderRadius: BorderRadius.only(topLeft: Radius.circular(10),topRight: Radius.circular(10),bottomRight: Radius.circular(10)),
+            borderRadius: BorderRadius.all(Radius.circular(100)),
             child: Image.asset(
               this.assetPath!,
               fit: BoxFit.fill,
@@ -33,7 +29,7 @@ class DepartmentShapeTile extends StatelessWidget {
           ),
         ),
         SizedBox(height: 5),
-        Text(this.title!,style: TextStyle(fontSize: 14),textAlign: TextAlign.center,)
+        Text(this.title!,style: TextStyle(fontSize: 13,fontWeight: FontWeight.bold),textAlign: TextAlign.center,)
       ],
     );
   }
