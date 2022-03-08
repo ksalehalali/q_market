@@ -58,6 +58,31 @@ class _HomeScreenState extends State<HomeScreen> {
       "url":
           'assets/images/villaggio-mall-shopping-center-in-doha-qatar-with--1433715784114_rs.jpeg'
     },
+    {
+      'title': "Laptops",
+      "url":
+      'assets/images/villaggio-mall-shopping-center-in-doha-qatar-with--1433715784114_rs.jpeg'
+    },
+    {
+      'title': "Sports",
+      "url":
+      'assets/images/villaggio-mall-shopping-center-in-doha-qatar-with--1433715784114_rs.jpeg'
+    },
+    {
+      'title': "Televisions",
+      "url":
+      'assets/images/villaggio-mall-shopping-center-in-doha-qatar-with--1433715784114_rs.jpeg'
+    },
+    {
+      'title': "Watches",
+      "url":
+      'assets/images/villaggio-mall-shopping-center-in-doha-qatar-with--1433715784114_rs.jpeg'
+    },
+    {
+      'title': "Furniture",
+      "url":
+      'assets/images/villaggio-mall-shopping-center-in-doha-qatar-with--1433715784114_rs.jpeg'
+    },
   ];
 
   @override
@@ -123,19 +148,19 @@ class _HomeScreenState extends State<HomeScreen> {
                     ),
                   ),
                   SizedBox(height: 22.0,),
-                  Padding(
-                    padding: const EdgeInsets.symmetric(horizontal: 12.0),
+                  const Padding(
+                    padding:  EdgeInsets.symmetric(horizontal: 12.0),
                     child: Text('Shop by category',style: TextStyle(fontWeight: FontWeight.bold,fontSize: 14),),
                   ),
                   SizedBox(
                       height: 230, width: 400, child: _buildDepartmentsList()),
 
                   SizedBox(height: 1.0,),
-                  Padding(
-                    padding: const EdgeInsets.only(top: 0.0,left: 12),
+                  const Padding(
+                    padding:  EdgeInsets.only(top: 0.0,left: 0),
                     child: Text('Latest Products',style: TextStyle(fontWeight: FontWeight.bold,fontSize: 14),),
                   ),
-                  _buildRecommendedList()
+                  _buildHorizontalListOfProducts()
                 ],
               ),
             ),
@@ -174,9 +199,10 @@ class _HomeScreenState extends State<HomeScreen> {
     );
   }
 
-  Widget _buildRecommendedList() {
+  Widget _buildHorizontalListOfProducts() {
+    final screenSize =Get.size;
     return SizedBox(
-      height: 500,
+      height: screenSize.height *0.4 -28,
       child: FutureBuilder(
           builder: (context, data) => data.connectionState ==
                   ConnectionState.waiting
@@ -192,11 +218,10 @@ class _HomeScreenState extends State<HomeScreen> {
               : CustomScrollView(
                   scrollDirection: Axis.horizontal,
                   slivers: [
-
                     SliverList(
                       delegate: SliverChildBuilderDelegate((context, index) {
                         return ProductItemCard(image: deps[index]['url'],date: '22/22/2222',views: 2,country: 'kuwait',title: 'shirt',);
-                      }, childCount: 3),
+                      }, childCount:4,semanticIndexOffset: 2,),
                     )
                   ],
                 )),

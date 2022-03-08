@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:q_market/Assistants/globals.dart';
 
 class DepartmentShapeTile extends StatelessWidget {
   final Color? color;
@@ -15,9 +16,9 @@ class DepartmentShapeTile extends StatelessWidget {
         Container(
           height: 62,
           width: 62,
-          padding:  EdgeInsets.all(1),
-          decoration: const BoxDecoration(
-            color: Colors.grey,
+          padding:  EdgeInsets.all(0.1),
+          decoration:  BoxDecoration(
+            color: myHexColor,
             borderRadius: BorderRadius.all(Radius.circular(100)),
           ),
           child: ClipRRect(
