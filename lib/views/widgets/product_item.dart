@@ -112,7 +112,7 @@ class ProductItemCard extends StatelessWidget {
                           ),
 
                           SizedBox(
-                            width: size.width * 0.4-20,
+                            width: size.width * 0.4-10,
                             child: Row(
                               children: [
                                 Text(
@@ -126,7 +126,7 @@ class ProductItemCard extends StatelessWidget {
                                       color: Colors.grey,
                                       fontSize: 11),
                                 ),
-                                SizedBox(width: 8.0,),
+                                SizedBox(width: 7.0,),
                                 Text(
                                   "Discount 30%",
                                   overflow: TextOverflow.ellipsis,
@@ -135,8 +135,8 @@ class ProductItemCard extends StatelessWidget {
                                   textAlign: TextAlign.left,
                                   style: TextStyle(
                                       fontFamily: 'Montserrat-Arabic Regular',
-                                      color: myHexColor,
-                                      fontSize: 12),
+                                      color: myHexColor3,
+                                      fontSize: 11),
                                 ),
                               ],
                             ),

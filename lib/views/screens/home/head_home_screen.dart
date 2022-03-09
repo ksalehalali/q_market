@@ -13,9 +13,9 @@ Widget headHomeScreen(MediaQueryData screenSize) {
             Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                Text('Hello!', style: TextStyle(fontSize: 12,color: myHexColor,fontWeight: FontWeight.w500,),),
+                Text('Hello!', style: TextStyle(fontSize: 12,color: myHexColor3,fontWeight: FontWeight.w500,),),
                 SizedBox(height: 4,),
-                Text('Khaled Ali',style: TextStyle(fontSize: 14,color: myHexColor,fontWeight: FontWeight.bold))
+                Text('Khaled Ali',style: TextStyle(fontSize: 14,color: myHexColor3,fontWeight: FontWeight.bold))
               ],
             ),
             // Image.asset(

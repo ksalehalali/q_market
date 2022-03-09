@@ -61,27 +61,27 @@ class _HomeScreenState extends State<HomeScreen> {
     {
       'title': "Laptops",
       "url":
-      'assets/images/villaggio-mall-shopping-center-in-doha-qatar-with--1433715784114_rs.jpeg'
+          'assets/images/villaggio-mall-shopping-center-in-doha-qatar-with--1433715784114_rs.jpeg'
     },
     {
       'title': "Sports",
       "url":
-      'assets/images/villaggio-mall-shopping-center-in-doha-qatar-with--1433715784114_rs.jpeg'
+          'assets/images/villaggio-mall-shopping-center-in-doha-qatar-with--1433715784114_rs.jpeg'
     },
     {
       'title': "Televisions",
       "url":
-      'assets/images/villaggio-mall-shopping-center-in-doha-qatar-with--1433715784114_rs.jpeg'
+          'assets/images/villaggio-mall-shopping-center-in-doha-qatar-with--1433715784114_rs.jpeg'
     },
     {
       'title': "Watches",
       "url":
-      'assets/images/villaggio-mall-shopping-center-in-doha-qatar-with--1433715784114_rs.jpeg'
+          'assets/images/villaggio-mall-shopping-center-in-doha-qatar-with--1433715784114_rs.jpeg'
     },
     {
       'title': "Furniture",
       "url":
-      'assets/images/villaggio-mall-shopping-center-in-doha-qatar-with--1433715784114_rs.jpeg'
+          'assets/images/villaggio-mall-shopping-center-in-doha-qatar-with--1433715784114_rs.jpeg'
     },
   ];
 
@@ -114,12 +114,13 @@ class _HomeScreenState extends State<HomeScreen> {
                                 builder: (context) => AddressOnMap()));
                       },
                       child: Padding(
-                        padding: const EdgeInsets.symmetric(vertical: 2.0,horizontal: 6.0),
+                        padding: const EdgeInsets.symmetric(
+                            vertical: 2.0, horizontal: 6.0),
                         child: addressHomeScreen(MediaQuery.of(context)),
                       )),
-                  SizedBox(height: 6.0,),
-
-
+                  SizedBox(
+                    height: 6.0,
+                  ),
                   SizedBox(
                     height: 160.0,
                     width: double.infinity,
@@ -147,20 +148,134 @@ class _HomeScreenState extends State<HomeScreen> {
                       ],
                     ),
                   ),
-                  SizedBox(height: 22.0,),
+                  SizedBox(
+                    height: 22.0,
+                  ),
                   const Padding(
-                    padding:  EdgeInsets.symmetric(horizontal: 12.0),
-                    child: Text('Shop by category',style: TextStyle(fontWeight: FontWeight.bold,fontSize: 14),),
+                    padding: EdgeInsets.symmetric(horizontal: 12.0),
+                    child: Text(
+                      'Shop by category',
+                      style:
+                          TextStyle(fontWeight: FontWeight.bold, fontSize: 14),
+                    ),
                   ),
                   SizedBox(
                       height: 230, width: 400, child: _buildDepartmentsList()),
-
-                  SizedBox(height: 1.0,),
-                  const Padding(
-                    padding:  EdgeInsets.only(top: 0.0,left: 0),
-                    child: Text('Latest Products',style: TextStyle(fontWeight: FontWeight.bold,fontSize: 14),),
+                  SizedBox(
+                    height: 1.0,
                   ),
-                  _buildHorizontalListOfProducts()
+                  Row(
+                    children: [
+                      const Padding(
+                        padding: EdgeInsets.only(
+                          top: 0.0,
+                          left: 12,
+                        ),
+                        child: Text(
+                          'Latest Products',
+                          style: TextStyle(
+                              fontWeight: FontWeight.bold, fontSize: 14),
+                        ),
+                      ),
+                      Spacer(),
+                      Padding(
+                        padding:
+                            EdgeInsets.only(top: 0.0, left: 12, right: 5.0),
+                        child: Text(
+                          'View all',
+                          style: TextStyle(
+                              fontWeight: FontWeight.bold,
+                              fontSize: 13,
+                              color: Colors.grey[700]),
+                        ),
+                      ),
+                      Icon(
+                        Icons.arrow_forward_ios_rounded,
+                        size: 14,
+                        color: Colors.grey[700],
+                      )
+                    ],
+                  ),
+                  SizedBox(
+                    height: 6.0,
+                  ),
+                  _buildHorizontalListOfProducts(),
+                  SizedBox(
+                    height: 12.0,
+                  ),
+                  Row(
+                    children: [
+                      const Padding(
+                        padding: EdgeInsets.only(top: 0.0, left: 12),
+                        child: Text(
+                          'Recommended for you',
+                          style: TextStyle(
+                              fontWeight: FontWeight.bold, fontSize: 14),
+                        ),
+                      ),
+                      Spacer(),
+                      Padding(
+                        padding:
+                            EdgeInsets.only(top: 0.0, left: 12, right: 5.0),
+                        child: Text(
+                          'View all',
+                          style: TextStyle(
+                              fontWeight: FontWeight.bold,
+                              fontSize: 13,
+                              color: Colors.grey[700]),
+                        ),
+                      ),
+                      Icon(
+                        Icons.arrow_forward_ios_rounded,
+                        size: 14,
+                        color: Colors.grey[700],
+                      )
+                    ],
+                  ),
+                  SizedBox(
+                    height: 6.0,
+                  ),
+                  _buildHorizontalListOfRecommendedProducts(),
+                  SizedBox(
+                    height: 12.0,
+                  ),
+                  Row(
+                    children: [
+                      const Padding(
+                        padding: EdgeInsets.only(top: 0.0, left: 12),
+                        child: Text(
+                          'Offers',
+                          style: TextStyle(
+                              fontWeight: FontWeight.bold, fontSize: 14),
+                        ),
+                      ),
+                      Spacer(),
+                      Padding(
+                        padding:
+                            EdgeInsets.only(top: 0.0, left: 12, right: 5.0),
+                        child: Text(
+                          'View all',
+                          style: TextStyle(
+                              fontWeight: FontWeight.bold,
+                              fontSize: 13,
+                              color: Colors.grey[700]),
+                        ),
+                      ),
+                      Icon(
+                        Icons.arrow_forward_ios_rounded,
+                        size: 14,
+                        color: Colors.grey[700],
+                      )
+                    ],
+                  ),
+                  SizedBox(
+                    height: 6.0,
+                  ),
+                  _buildHorizontalListOfOffersProducts(),
+                  SizedBox(
+                    height: 22,
+                  ),
+                  _buildOfferArea()
                 ],
               ),
             ),
@@ -200,31 +315,157 @@ class _HomeScreenState extends State<HomeScreen> {
   }
 
   Widget _buildHorizontalListOfProducts() {
-    final screenSize =Get.size;
+    final screenSize = Get.size;
     return SizedBox(
-      height: screenSize.height *0.4 -28,
+      height: screenSize.height * 0.4 - 28,
       child: FutureBuilder(
-          builder: (context, data) => data.connectionState ==
-                  ConnectionState.waiting
-              ? SizedBox(
-                  width: 110,
-                  height: 110,
-                  child: FittedBox(
-                    child: CircularProgressIndicator.adaptive(
-                      strokeWidth: 0.9,
-                    ),
-                  ),
-                )
-              : CustomScrollView(
-                  scrollDirection: Axis.horizontal,
-                  slivers: [
-                    SliverList(
-                      delegate: SliverChildBuilderDelegate((context, index) {
-                        return ProductItemCard(image: deps[index]['url'],date: '22/22/2222',views: 2,country: 'kuwait',title: 'shirt',);
-                      }, childCount:4,semanticIndexOffset: 2,),
+          builder: (context, data) =>
+              data.connectionState == ConnectionState.waiting
+                  ? SizedBox(
+                      width: 110,
+                      height: 110,
+                      child: FittedBox(
+                        child: CircularProgressIndicator.adaptive(
+                          strokeWidth: 0.9,
+                        ),
+                      ),
                     )
-                  ],
-                )),
+                  : CustomScrollView(
+                      scrollDirection: Axis.horizontal,
+                      slivers: [
+                        SliverList(
+                          delegate: SliverChildBuilderDelegate(
+                            (context, index) {
+                              return ProductItemCard(
+                                image: deps[index]['url'],
+                                date: '22/22/2222',
+                                views: 2,
+                                country: 'kuwait',
+                                title: 'shirt',
+                              );
+                            },
+                            childCount: 4,
+                            semanticIndexOffset: 2,
+                          ),
+                        )
+                      ],
+                    )),
+    );
+  }
+
+  Widget _buildHorizontalListOfRecommendedProducts() {
+    final screenSize = Get.size;
+    return SizedBox(
+      height: screenSize.height * 0.4 - 28,
+      child: FutureBuilder(
+          builder: (context, data) =>
+              data.connectionState == ConnectionState.waiting
+                  ? SizedBox(
+                      width: 110,
+                      height: 110,
+                      child: FittedBox(
+                        child: CircularProgressIndicator.adaptive(
+                          strokeWidth: 0.9,
+                        ),
+                      ),
+                    )
+                  : CustomScrollView(
+                      scrollDirection: Axis.horizontal,
+                      slivers: [
+                        SliverList(
+                          delegate: SliverChildBuilderDelegate(
+                            (context, index) {
+                              return ProductItemCard(
+                                image: deps[index]['url'],
+                                date: '22/22/2222',
+                                views: 2,
+                                country: 'kuwait',
+                                title: 'shirt',
+                              );
+                            },
+                            childCount: 4,
+                            semanticIndexOffset: 2,
+                          ),
+                        )
+                      ],
+                    )),
+    );
+  }
+
+  Widget _buildHorizontalListOfOffersProducts() {
+    final screenSize = Get.size;
+    return SizedBox(
+      height: screenSize.height * 0.4 - 28,
+      child: FutureBuilder(
+          builder: (context, data) =>
+              data.connectionState == ConnectionState.waiting
+                  ? SizedBox(
+                      width: 110,
+                      height: 110,
+                      child: FittedBox(
+                        child: CircularProgressIndicator.adaptive(
+                          strokeWidth: 0.9,
+                        ),
+                      ),
+                    )
+                  : CustomScrollView(
+                      scrollDirection: Axis.horizontal,
+                      slivers: [
+                        SliverList(
+                          delegate: SliverChildBuilderDelegate(
+                            (context, index) {
+                              return ProductItemCard(
+                                image: deps[index]['url'],
+                                date: '22/22/2222',
+                                views: 2,
+                                country: 'kuwait',
+                                title: 'shirt',
+                              );
+                            },
+                            childCount: 4,
+                            semanticIndexOffset: 2,
+                          ),
+                        )
+                      ],
+                    )),
+    );
+  }
+
+  Widget _buildOfferArea() {
+    final screenSize = Get.size;
+    return SizedBox(
+      height: screenSize.height * 0.4 - 28,
+      child: FutureBuilder(
+          builder: (context, data) =>
+              data.connectionState == ConnectionState.waiting
+                  ? SizedBox(
+                      width: 110,
+                      height: 110,
+                      child: FittedBox(
+                        child: CircularProgressIndicator.adaptive(
+                          strokeWidth: 0.9,
+                        ),
+                      ),
+                    )
+                  : Container(
+                      decoration: BoxDecoration(
+                        image: DecorationImage(
+                          image: AssetImage(
+                              'assets/images/Expo-2020-dubai-1.jpeg'),
+                        ),
+                      ),
+                      child: Center(
+                        child: Column(
+                          crossAxisAlignment: CrossAxisAlignment.center,
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          children: [
+                            SizedBox(
+                              height: 33,
+                            ),
+                            Text('data')
+                          ],
+                        ),
+                      ))),
     );
   }
 }

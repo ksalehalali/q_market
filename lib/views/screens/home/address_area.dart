@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_svg/svg.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:get/get.dart';
 import 'package:get_storage/get_storage.dart';
@@ -8,11 +9,17 @@ Widget addressHomeScreen(MediaQueryData screenSize) {
 
   return Container(
       child: Row(
-        mainAxisAlignment: MainAxisAlignment.start,
+        mainAxisAlignment: MainAxisAlignment.center,
         crossAxisAlignment: CrossAxisAlignment.center,
         children: <Widget>[
-          const Icon(Icons.location_on_outlined),
-          //SizedBox(width: screenSize.size.width *0.1 -30,),
+           SvgPicture.asset(
+      'assets/icons/shipping.svg',
+          color: Colors.grey[600],
+          height: 22.00,
+          width: 22.0,
+          semanticsLabel: 'A red up arrow'
+      ),
+          SizedBox(width: screenSize.size.width *0.1 -30,),
           Row(
             children: [
               SizedBox(
@@ -21,8 +28,8 @@ Widget addressHomeScreen(MediaQueryData screenSize) {
                 child: RichText(text:  TextSpan(
                   children: [
                     TextSpan(
-                      text: 'Your Address : ',
-                      style: TextStyle(fontSize: 11,color: Colors.black)
+                      text: 'Delivery Address ',
+                      style: TextStyle(fontSize: 12,color: Colors.black)
                     ),
                     TextSpan(
                         text: box.read('address') ??'Qatar Doha - arrian',
