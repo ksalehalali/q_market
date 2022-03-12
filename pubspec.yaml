@@ -48,6 +48,8 @@ dependencies:
   sliding_up_panel:
   geolocator:
   adobe_xd:
+  flutter_svg: ^1.0.3
+  expandable: ^5.0.1
 
 
 dev_dependencies:
