@@ -3,6 +3,7 @@ import 'package:flutter_svg/svg.dart';
 import 'package:get/get.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:location/location.dart';
+import 'package:q_market/views/screens/auth/register.dart';
 import 'package:q_market/views/screens/home/home.dart';
 
 import '../../Assistants/assistantMethods.dart';
@@ -21,6 +22,7 @@ class _MainScreenState extends State<MainScreen> {
 
   final List<Widget> screens = [
     const HomeScreen(),
+    Register(),
   ];
 
   final PageStorageBucket bucket = PageStorageBucket();

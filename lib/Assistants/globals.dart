@@ -1,6 +1,7 @@
 library route.globals;
 import 'dart:ui';
 
+import 'package:flutter/material.dart';
 import 'package:latlong2/latlong.dart';
 
 String token = "";
@@ -14,3 +15,18 @@ Color myHexColor2 = const Color(0xff1dd5d7);
 Color myHexColor3 = const Color(0xff22dcdb);
 Color myHexColor4 = const Color(0xff1cd3dc);
 Color myHexColor5 = const Color(0xff0fbcbc);
+
+final Map<int, Color> primaryColorMap = {
+  50: myHexColor,
+  100: myHexColor1,
+  200: myHexColor2,
+  300: myHexColor3,
+  400: myHexColor4,
+  500: myHexColor5,
+  600: Colors.white,
+  700: Colors.white,
+  800: Colors.white,
+  900: Colors.white,
+};
+
+final MaterialColor primaryColorSwatch = MaterialColor(myHexColor5.value, primaryColorMap);

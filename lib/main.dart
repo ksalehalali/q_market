@@ -55,6 +55,7 @@ print(position);
         primarySwatch: Colors.blue,
       ),
       home: const MainScreen(),
+      debugShowCheckedModeBanner: false,
     );
   }
 }
