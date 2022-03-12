@@ -1,8 +1,11 @@
 import 'package:carousel_pro/carousel_pro.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:q_market/Assistants/globals.dart';
+import 'package:q_market/controllers/product_controller.dart';
 import 'package:q_market/views/screens/home/search_area_des.dart';
-import 'package:q_market/views/widgets/product_item.dart';
+import 'package:q_market/views/screens/show_product/product_item.dart';
 import '../../address/address_on_map.dart';
 import '../../address/search_address_screen.dart';
 import '../../widgets/departments_shpe.dart';
@@ -17,6 +20,8 @@ class HomeScreen extends StatefulWidget {
 }
 
 class _HomeScreenState extends State<HomeScreen> {
+  final ProductsController productController = Get.find();
+
   List<Map> deps = [
     {
       'title': "Food",
@@ -95,7 +100,7 @@ class _HomeScreenState extends State<HomeScreen> {
           children: [
             headHomeScreen(MediaQuery.of(context)),
             const SizedBox(
-              height: 8.0,
+              height: 6.0,
             ),
             const SearchAreaDesign(),
             Container(
@@ -337,14 +342,9 @@ class _HomeScreenState extends State<HomeScreen> {
                           delegate: SliverChildBuilderDelegate(
                             (context, index) {
                               return ProductItemCard(
-                                image: deps[index]['url'],
-                                date: '22/22/2222',
-                                views: 2,
-                                country: 'kuwait',
-                                title: 'shirt',
-                              );
+                            product: productController.latestProducts[index],);
                             },
-                            childCount: 4,
+                            childCount:3,
                             semanticIndexOffset: 2,
                           ),
                         )
@@ -358,6 +358,7 @@ class _HomeScreenState extends State<HomeScreen> {
     return SizedBox(
       height: screenSize.height * 0.4 - 28,
       child: FutureBuilder(
+        future: productController.getLatestProducts(),
           builder: (context, data) =>
               data.connectionState == ConnectionState.waiting
                   ? SizedBox(
@@ -376,14 +377,9 @@ class _HomeScreenState extends State<HomeScreen> {
                           delegate: SliverChildBuilderDelegate(
                             (context, index) {
                               return ProductItemCard(
-                                image: deps[index]['url'],
-                                date: '22/22/2222',
-                                views: 2,
-                                country: 'kuwait',
-                                title: 'shirt',
-                              );
+                                  product: productController.latestProducts[index]);
                             },
-                            childCount: 4,
+                            childCount: 3,
                             semanticIndexOffset: 2,
                           ),
                         )
@@ -397,6 +393,7 @@ class _HomeScreenState extends State<HomeScreen> {
     return SizedBox(
       height: screenSize.height * 0.4 - 28,
       child: FutureBuilder(
+        future: productController.getLatestProducts(),
           builder: (context, data) =>
               data.connectionState == ConnectionState.waiting
                   ? SizedBox(
@@ -415,14 +412,10 @@ class _HomeScreenState extends State<HomeScreen> {
                           delegate: SliverChildBuilderDelegate(
                             (context, index) {
                               return ProductItemCard(
-                                image: deps[index]['url'],
-                                date: '22/22/2222',
-                                views: 2,
-                                country: 'kuwait',
-                                title: 'shirt',
+                                  product: productController.latestProducts[index]
                               );
                             },
-                            childCount: 4,
+                            childCount: 3,
                             semanticIndexOffset: 2,
                           ),
                         )
@@ -433,39 +426,70 @@ class _HomeScreenState extends State<HomeScreen> {
 
   Widget _buildOfferArea() {
     final screenSize = Get.size;
-    return SizedBox(
-      height: screenSize.height * 0.4 - 28,
-      child: FutureBuilder(
-          builder: (context, data) =>
-              data.connectionState == ConnectionState.waiting
-                  ? SizedBox(
-                      width: 110,
-                      height: 110,
-                      child: FittedBox(
-                        child: CircularProgressIndicator.adaptive(
-                          strokeWidth: 0.9,
-                        ),
-                      ),
-                    )
-                  : Container(
-                      decoration: BoxDecoration(
-                        image: DecorationImage(
-                          image: AssetImage(
-                              'assets/images/Expo-2020-dubai-1.jpeg'),
-                        ),
-                      ),
-                      child: Center(
-                        child: Column(
-                          crossAxisAlignment: CrossAxisAlignment.center,
-                          mainAxisAlignment: MainAxisAlignment.center,
-                          children: [
-                            SizedBox(
-                              height: 33,
-                            ),
-                            Text('data')
-                          ],
-                        ),
-                      ))),
+    return InkWell(
+      onTap: (){
+        print('tap');
+      },
+      child: Padding(
+        padding: const EdgeInsets.only(bottom: 22.0),
+        child: Stack(
+          children: [
+
+            FittedBox(
+              child: SizedBox(
+                height: screenSize.height * 0.2,
+                width: screenSize.width,
+                child: FutureBuilder(
+                  future: productController.getLatestProducts(),
+                    builder: (context, data) =>
+                        data.connectionState == ConnectionState.waiting
+                            ? const SizedBox(
+                                width: 110,
+                                height: 110,
+                                child: FittedBox(
+                                  child: CircularProgressIndicator.adaptive(
+                                    strokeWidth: 0.9,
+                                  ),
+                                ),
+                              )
+                            : Container(
+                                decoration: BoxDecoration(
+                                  color: Colors.black,
+                                  boxShadow: [
+                                    BoxShadow(color: Colors.black ),
+                                    BoxShadow(color: myHexColor1),
+
+                                  ],
+                                  image: DecorationImage(
+                                    fit: BoxFit.fitWidth,
+                                    image: AssetImage(
+                                        'assets/images/Expo-2020-dubai-1.jpeg',),
+                                  ),
+                                ),
+                                )),
+              ),
+            ),
+            Positioned(
+              top: 0.0,
+              child: Container(color: Colors.black.withOpacity(0.4),height: 200,
+                width: screenSize.width,),
+            ),
+            Column(
+              crossAxisAlignment: CrossAxisAlignment.center,
+              mainAxisAlignment: MainAxisAlignment.center,
+              children:  [
+                SizedBox(
+                  height: screenSize.height *0.1,
+                ),
+                Text('Offers and Promotions',style: TextStyle(fontSize: 22,color: Colors.white,fontWeight: FontWeight.bold),),
+                SizedBox(height: screenSize.height *0.1 -70,),
+                Text('On all men\'s suits from the most famous world',style: TextStyle(fontSize: 16,color: Colors.grey[50],fontWeight: FontWeight.bold),)
+
+              ],
+            )
+          ],
+        ),
+      ),
     );
   }
 }
