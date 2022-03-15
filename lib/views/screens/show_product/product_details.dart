@@ -4,7 +4,6 @@ import 'package:flutter_svg/svg.dart';
 import 'package:get/get.dart';
 import 'package:q_market/Assistants/globals.dart';
 import 'package:q_market/models/product_model.dart';
-
 import '../../../controllers/product_controller.dart';
 import '../home/search_area_des.dart';
 
@@ -18,11 +17,28 @@ class ProductDetails extends StatefulWidget {
   _ProductDetailsState createState() => _ProductDetailsState();
 }
 
-class _ProductDetailsState extends State<ProductDetails> {
+class _ProductDetailsState extends State<ProductDetails> with SingleTickerProviderStateMixin {
+  ColorTween _colorTween =ColorTween(begin: Colors.blue,end: Colors.red);
+  late AnimationController _animationController;
   final ProductsController productController = Get.find();
   List<Color> _colorSize = [myHexColor3,];
   List<Color> _colorSizeBorder = [myHexColor3,];
+  Color? _color = Colors.blue;
+  Color? _color2 = Colors.red;
+
   var currentSize;
+  @override
+  void initState() {
+    // TODO: implement initState
+    super.initState();
+
+  }
+
+  @override
+  void dispose() {
+    // TODO: implement dispose
+    super.dispose();
+  }
   @override
   Widget build(BuildContext context) {
     final screenSize = Get.size;
@@ -35,6 +51,7 @@ class _ProductDetailsState extends State<ProductDetails> {
           height: screenSize.height,
           width: screenSize.width,
           child: ListView(
+            padding: EdgeInsets.zero,
             shrinkWrap: true,
             children: [
               const SizedBox(
@@ -124,11 +141,123 @@ class _ProductDetailsState extends State<ProductDetails> {
                   ],
                 ),
               ),
+              Padding(
+                padding: const EdgeInsets.symmetric(vertical: 14.0),
+                child: Container(
+                  margin: EdgeInsets.symmetric(horizontal: 0,vertical: 0),
+                  decoration: BoxDecoration(
+                    color: Colors.grey[300],
+                    borderRadius: BorderRadius.circular(3)
+                  ),
+                  child: Padding(
+                    padding: EdgeInsets.symmetric(vertical: 18),
+                    child: Container(
+                      color: Colors.white,
+                      child: Column(
+                        children: [
+                          Padding(
+                            padding: const EdgeInsets.symmetric(vertical: 18.0,horizontal: 12),
+                            child: Row(
+                              children:  [
+                                SvgPicture.asset(
+                                    'assets/images/svg/9593997931634472866.svg',
+                                   // color: Colors.black,
+                                    height: 21.00,
+                                    width: 21.0,
+                                    semanticsLabel: 'A red up arrow'
+                                ),
+                                SizedBox(width: 5.0,),
+                                const Text('Seller',style: TextStyle(
+                                  fontWeight: FontWeight.w600,
+                                  fontSize: 15
+                                ),),
+                                SizedBox(width: 8.0,),
+
+                                 Text('QR Market',style: TextStyle(
+                                    fontWeight: FontWeight.w600,
+                                    fontSize: 16,
+                                  color: myHexColor3
+                                ),),
+                                Spacer(),
+                                Icon(Icons.keyboard_arrow_right)
+                              ],
+                            ),
+                          )
+                        ],
+                      ),
+                    ),
+                  ),
+
+                ),
+              ),
+              Row(
+                crossAxisAlignment: CrossAxisAlignment.center,
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                InkWell(
+                  onTap: (){
+                    setState(() {
+                      _color = Colors.blue;
+                      _color2 = Colors.red;
+
+                    });
+                  },
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.center,
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      AnimatedContainer(duration: 11.seconds,
+                      curve: Curves.easeIn,
+                      child: Text('View',style: TextStyle(color: _color))),
+                      SizedBox(height: 10.0,),
+                      AnimatedContainer(
+                        curve: Curves.easeInOut,
+                            width:screenSize.width/2,
+                            height: 2.5,
+                            color: _color,
+                        duration: 900.milliseconds ,
+
+                      )
+                    ],
+                  ),
+                ),
+                  InkWell(
+                    onTap: (){
+                      setState(() {
+                        _color2 = Colors.blue;
+                        _color = Colors.red;
+
+                      });
+                    },
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.center,
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: [
+                        AnimatedContainer(
+                            curve: Curves.easeIn,
+                            duration: 14.seconds,
+
+                        child: Text('View',style: TextStyle(color: _color2),)),
+                        SizedBox(height: 10.0,),
+                        AnimatedContainer(
+                          curve: Curves.easeInOut,
+                          width: screenSize.width/2,
+                          height: 2.5,
+                          color: _color2,
+                          duration: 900.milliseconds ,
+
+                        )
+                      ],
+                    ),
+                  )
+                ],
+              ),
+              SizedBox(height: 60,)
 
             ],
           ),
         ),
-        bottomSheet:  buildAddCartPrice(),
+        bottomSheet:  buildAddCartPrice(widget.product!.price!),
       ),
     );
   }
@@ -186,8 +315,9 @@ class _ProductDetailsState extends State<ProductDetails> {
 
   }
 
-  Widget buildAddCartPrice(){
+  Widget buildAddCartPrice(double price){
     return Card(
+      margin: EdgeInsets.zero,
       child: Row(
         children: [
           Expanded(child: Container(
@@ -199,7 +329,7 @@ class _ProductDetailsState extends State<ProductDetails> {
             height: 44,
             width: 130,
             color: Colors.white,
-            child: Center(child: Text('Add to Cart',style: TextStyle(color: Colors.black,fontWeight: FontWeight.bold),),),
+            child: Center(child: Text('${price.toStringAsFixed(3)}',style: TextStyle(color: Colors.black,fontWeight: FontWeight.bold),),),
           )
         ],
       ),

@@ -5,6 +5,7 @@ import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:location/location.dart';
 import 'package:q_market/controllers/product_controller.dart';
 import 'package:q_market/models/product_model.dart';
+import 'package:q_market/views/screens/auth/register.dart';
 import 'package:q_market/views/screens/home/home.dart';
 import 'package:q_market/views/screens/main_screen.dart';
 import 'package:geolocator/geolocator.dart' as geo;
