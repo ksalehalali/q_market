@@ -150,7 +150,7 @@ class _ProductDetailsState extends State<ProductDetails> with SingleTickerProvid
                     borderRadius: BorderRadius.circular(3)
                   ),
                   child: Padding(
-                    padding: EdgeInsets.symmetric(vertical: 18),
+                    padding: EdgeInsets.symmetric(vertical: 12),
                     child: Container(
                       color: Colors.white,
                       child: Column(
@@ -208,7 +208,7 @@ class _ProductDetailsState extends State<ProductDetails> with SingleTickerProvid
                     children: [
                       AnimatedContainer(duration: 11.seconds,
                       curve: Curves.easeIn,
-                      child: Text('View',style: TextStyle(color: _color))),
+                      child: Text('Overview',style: TextStyle(color: _color))),
                       SizedBox(height: 10.0,),
                       AnimatedContainer(
                         curve: Curves.easeInOut,
@@ -237,7 +237,7 @@ class _ProductDetailsState extends State<ProductDetails> with SingleTickerProvid
                             curve: Curves.easeIn,
                             duration: 14.seconds,
 
-                        child: Text('View',style: TextStyle(color: _color2),)),
+                        child: Text('Specifications',style: TextStyle(color: _color2),)),
                         SizedBox(height: 10.0,),
                         AnimatedContainer(
                           curve: Curves.easeInOut,
@@ -251,6 +251,46 @@ class _ProductDetailsState extends State<ProductDetails> with SingleTickerProvid
                     ),
                   )
                 ],
+              ),
+              Padding(
+                padding: const EdgeInsets.symmetric(vertical: 14.0,horizontal: 12),
+                child: Text('Specifications',style: TextStyle(color: Colors.black,fontSize: 12,fontWeight: FontWeight.w800),),
+              ),
+              Padding(
+                padding: const EdgeInsets.symmetric(vertical: 12.0,horizontal: 12),
+                child: Row(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Padding(
+                      padding:  EdgeInsets.only(right: screenSize.width *0.2+8,left: 0),
+                      child: Text('Specifications',style: TextStyle(color: Colors.grey[900],fontSize: 11 ,fontWeight: FontWeight.w600),),
+                    ),
+                    SizedBox(
+                        width: 210,
+                        child: Text('Specifications Specifications Specifications Specifications Specifications',maxLines: 3,style: TextStyle(fontWeight: FontWeight.w500,color: Colors.grey[800],fontSize: 11, ),)),
+                    Spacer()
+                  ],
+                ),
+              ),
+
+              Container(
+                color: myHexColor3,
+                child: Padding(
+                  padding: const EdgeInsets.symmetric(vertical: 12.0,horizontal: 12),
+                  child: Row(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Padding(
+                        padding:  EdgeInsets.only(right: screenSize.width *0.2+8,left: 0),
+                        child: Text('Specifications',style: TextStyle(color: Colors.grey[900],fontSize: 11 ,fontWeight: FontWeight.w600),),
+                      ),
+                      SizedBox(
+                          width: 210,
+                          child: Text('Specifications Specifications',maxLines: 3,style: TextStyle(color: Colors.grey[800],fontSize: 11,fontWeight: FontWeight.w500 ),)),
+                      Spacer()
+                    ],
+                  ),
+                ),
               ),
               SizedBox(height: 60,)
 
