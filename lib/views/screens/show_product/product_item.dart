@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
+import 'package:get/get.dart';
+import 'package:like_button/like_button.dart';
 import 'package:q_market/Assistants/globals.dart';
 import 'package:q_market/models/product_model.dart';
 import 'package:q_market/views/screens/show_product/product_details.dart';
@@ -12,9 +14,10 @@ bool like = false;
 class ProductItemCard extends StatelessWidget {
 
   final ProductModel product;
+  final bool fromDetails;
   const ProductItemCard({
     Key? key,
-   required this.product
+   required this.product,required this.fromDetails
   }) : super(key: key);
 
 
@@ -22,10 +25,15 @@ class ProductItemCard extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     Size size = MediaQuery.of(context).size;
-    bool? isLike = false;
+    double buttonSize =22;
+    final screenSize = Get.size;
     return InkWell(
       onTap: (){
-        Navigator.push(context, MaterialPageRoute(builder: (context)=> ProductDetails(product: product,)));
+       if(fromDetails){
+         Navigator.pushReplacement(context, MaterialPageRoute(builder: (context)=> ProductDetails(product: product,)));
+       }else{
+         Navigator.push(context, MaterialPageRoute(builder: (context)=> ProductDetails(product: product,)));
+       }
       },
       child: Container(
         height: 250,
@@ -42,8 +50,11 @@ class ProductItemCard extends StatelessWidget {
           children: <Widget>[
             InkWell(
                 onTap: () {
+                  if(fromDetails){
+                    Navigator.pushReplacement(context, MaterialPageRoute(builder: (context)=> ProductDetails(product: product,)));
+                  }else{
                     Navigator.push(context, MaterialPageRoute(builder: (context)=> ProductDetails(product: product,)));
-                },
+                  }                },
                 child: Image.network(
                   product.imageUrl!,
                   fit: BoxFit.fill,
@@ -53,35 +64,64 @@ class ProductItemCard extends StatelessWidget {
             Positioned(
                 top: 8.0,
                 left: 10.0,
-                child: InkWell(
-                  onTap: (){
-                    print('like');
-                  },
-                  child: Container(
-                    width: 32,
-                    height: 32,
-                    decoration: BoxDecoration(
-                      borderRadius: BorderRadius.circular(50),
-                      color: Colors.grey[50]
-                    ),
-              child: Padding(
-                  padding: const EdgeInsets.all(7.0),
-                  child: SvgPicture.asset(
-                      'assets/icons/13585919901586786441.svg',
-                      color: Colors.grey[400],
-                      height: 12.00,
-                      width: 12.0,
-                      semanticsLabel: 'A red up arrow'
+                child: Container(
+                  padding: EdgeInsets.zero,
+                  margin: EdgeInsets.zero,
+                  width: screenSize.width*.1-5,
+                  height: screenSize.width*.1-5,
+                  decoration: BoxDecoration(
+                      borderRadius: BorderRadius.circular(100),
+                      color: Colors.white.withOpacity(.9)
                   ),
-              ),
-            ),
+                  child: LikeButton(
+                    size: buttonSize,
+                    crossAxisAlignment: CrossAxisAlignment.center,
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    padding: EdgeInsets.only(left:screenSize.width*.1-37,top: 2),
+                    circleColor:
+                    CircleColor(start: Color(0xff00ddff), end: Color(0xff0099cc)),
+                    bubblesColor: BubblesColor(
+                      dotPrimaryColor: Color(0xff33b5e5),
+                      dotSecondaryColor: Color(0xff0099cc),
+                    ),
+                    likeBuilder: (bool isLiked) {
+
+                      return SvgPicture.asset(
+                          'assets/icons/heart.svg',
+                          alignment: Alignment.center,
+                          color: isLiked ? myHexColor3 : Colors.grey,
+                          height:buttonSize,
+                          width: buttonSize,
+                          semanticsLabel: 'A red up arrow'
+                      );
+                    },
+                    //likeCount: 665,
+                    // countBuilder: (int? count, bool isLiked, String text) {
+                    //   var color = isLiked ? Colors.deepPurpleAccent : Colors.grey;
+                    //   Widget result;
+                    //   if (count == 0) {
+                    //     result = Text(
+                    //       "love",
+                    //       style: TextStyle(color: color),
+                    //     );
+                    //   } else
+                    //     result = Text(
+                    //       text,
+                    //       style: TextStyle(color: color),
+                    //     );
+                    //   return result;
+                    // },
+                  ),
                 )),
             Positioned(
               top:size.height *0.3 -56,
               child: InkWell(
                 onTap: (){
-                  Navigator.push(context, MaterialPageRoute(builder: (context)=> ProductDetails(product: product,)));
-                },
+                  if(fromDetails){
+                    Navigator.pushReplacement(context, MaterialPageRoute(builder: (context)=> ProductDetails(product: product,)));
+                  }else{
+                    Navigator.push(context, MaterialPageRoute(builder: (context)=> ProductDetails(product: product,)));
+                  }                },
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   mainAxisAlignment: MainAxisAlignment.start,

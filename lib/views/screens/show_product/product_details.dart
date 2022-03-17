@@ -2,9 +2,11 @@ import 'package:carousel_pro/carousel_pro.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:get/get.dart';
+import 'package:like_button/like_button.dart';
 import 'package:q_market/Assistants/globals.dart';
 import 'package:q_market/models/product_model.dart';
 import '../../../controllers/product_controller.dart';
+import '../../widgets/horizontal_listOfProducts.dart';
 import '../home/search_area_des.dart';
 
 
@@ -23,9 +25,10 @@ class _ProductDetailsState extends State<ProductDetails> with SingleTickerProvid
   final ProductsController productController = Get.find();
   List<Color> _colorSize = [myHexColor3,];
   List<Color> _colorSizeBorder = [myHexColor3,];
-  Color? _color = Colors.blue;
-  Color? _color2 = Colors.red;
-
+  Color? _color = myHexColor3;
+  Color? _color2 = Colors.grey[700];
+  bool showOver =false;
+  bool showSpec = false;
   var currentSize;
   @override
   void initState() {
@@ -41,6 +44,7 @@ class _ProductDetailsState extends State<ProductDetails> with SingleTickerProvid
   }
   @override
   Widget build(BuildContext context) {
+    double buttonSize =22;
     final screenSize = Get.size;
     return SafeArea(
       top: true,
@@ -59,40 +63,152 @@ class _ProductDetailsState extends State<ProductDetails> with SingleTickerProvid
               ),
               Row(
                 children:  [
-                  Expanded(child: SearchAreaDesign()),
+                  SizedBox(width: 12.0,),
                   InkWell(
                       onTap: (){
                         Navigator.of(context).pop();
                       },
-                      child: Icon(Icons.arrow_forward_ios_rounded,color: Colors.grey[800],size: 36,))
+                      child: Icon(Icons.arrow_back_ios,color: Colors.grey[800],size: 32,)),
+                  Expanded(child: SearchAreaDesign()),
+
                 ],
               ),
               SizedBox(height: 4,),
-              SizedBox(
-                height: 360.0,
-                width: double.infinity,
-                child: Carousel(
-                  dotSize: 4.0,
-                  dotSpacing: 15.0,
-                  autoplay: false,
-                  autoplayDuration: 4.seconds,
-                  animationDuration: 500.milliseconds,
-                  dotBgColor: Colors.transparent.withOpacity(0.1),
-                  dotColor: Colors.white,
-                  dotIncreasedColor: Colors.red,
-                  dotPosition: DotPosition.bottomLeft,
-                  images: [
-                    Image.network(
-                        widget.product!.imageUrl!,
-                        fit: BoxFit.cover),
-                    Image.network(
-                        widget.product!.imageUrl!,
-                        fit: BoxFit.cover),
-                    Image.network(
-                        widget.product!.imageUrl!,
-                        fit: BoxFit.cover),
-                  ],
-                ),
+              Stack(
+                children: [
+
+                  SizedBox(
+                    height: 360.0,
+                    width: double.infinity,
+                    child: Carousel(
+                      dotSize: 4.0,
+                      dotSpacing: 15.0,
+                      autoplay: false,
+                      autoplayDuration: 4.seconds,
+                      animationDuration: 500.milliseconds,
+                      dotBgColor: Colors.transparent.withOpacity(0.1),
+                      dotColor: Colors.white,
+                      dotIncreasedColor: Colors.red,
+                      dotPosition: DotPosition.bottomLeft,
+                      images: [
+                        Image.network(
+                            widget.product!.imageUrl!,
+                            fit: BoxFit.cover),
+                        Image.network(
+                            widget.product!.imageUrl!,
+                            fit: BoxFit.cover),
+                        Image.network(
+                            widget.product!.imageUrl!,
+                            fit: BoxFit.cover),
+                      ],
+                    ),
+                  ),
+                  Positioned(
+                      top: 8.0,
+                      left: 10.0,
+                      child: Container(
+                        padding: EdgeInsets.zero,
+                        margin: EdgeInsets.zero,
+                        width: screenSize.width*.1-5,
+                        height: screenSize.width*.1-5,
+                        decoration: BoxDecoration(
+                            borderRadius: BorderRadius.circular(100),
+                            color: Colors.white.withOpacity(.9)
+                        ),
+                        child: LikeButton(
+                          size: buttonSize,
+                          crossAxisAlignment: CrossAxisAlignment.center,
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          padding: EdgeInsets.only(left:screenSize.width*.1-37,top: 2),
+                          circleColor:
+                          CircleColor(start: Color(0xff00ddff), end: Color(0xff0099cc)),
+                          bubblesColor: BubblesColor(
+                            dotPrimaryColor: Color(0xff33b5e5),
+                            dotSecondaryColor: Color(0xff0099cc),
+                          ),
+                          likeBuilder: (bool isLiked) {
+
+                            return SvgPicture.asset(
+                                'assets/icons/heart.svg',
+                                alignment: Alignment.center,
+                                color: isLiked ? myHexColor3 : Colors.grey,
+                                height:buttonSize,
+                                width: buttonSize,
+                                semanticsLabel: 'A red up arrow'
+                            );
+                          },
+                          //likeCount: 665,
+                          // countBuilder: (int? count, bool isLiked, String text) {
+                          //   var color = isLiked ? Colors.deepPurpleAccent : Colors.grey;
+                          //   Widget result;
+                          //   if (count == 0) {
+                          //     result = Text(
+                          //       "love",
+                          //       style: TextStyle(color: color),
+                          //     );
+                          //   } else
+                          //     result = Text(
+                          //       text,
+                          //       style: TextStyle(color: color),
+                          //     );
+                          //   return result;
+                          // },
+                        ),
+                      )),
+                  Positioned(
+                      top: screenSize.height *.1 -28,
+                      left: 10.0,
+                      child: Container(
+                        padding: EdgeInsets.zero,
+                        margin: EdgeInsets.zero,
+                        width: screenSize.width*.1-5,
+                        height: screenSize.width*.1-5,
+                        decoration: BoxDecoration(
+                            borderRadius: BorderRadius.circular(100),
+                            color: Colors.white.withOpacity(.9)
+                        ),
+                        child: LikeButton(
+                          size: buttonSize,
+                          crossAxisAlignment: CrossAxisAlignment.center,
+                          mainAxisAlignment: MainAxisAlignment.center,
+                         // padding: EdgeInsets.only(left:screenSize.width*.1-37,top: 2),
+                          circleColor:
+                          CircleColor(start: Color(0xff00ddff), end: Color(0xff0099cc)),
+                          bubblesColor: BubblesColor(
+                            dotPrimaryColor: Color(0xff33b5e5),
+                            dotSecondaryColor: Color(0xff0099cc),
+                          ),
+                          likeBuilder: (bool isLiked) {
+
+                            return SvgPicture.asset(
+                                'assets/icons/share3.svg',
+                                alignment: Alignment.center,
+                                color: isLiked ? myHexColor3 : Colors.grey,
+                                height:buttonSize,
+                                width: buttonSize,
+                                semanticsLabel: 'A red up arrow'
+                            );
+                          },
+                          //likeCount: 665,
+                          // countBuilder: (int? count, bool isLiked, String text) {
+                          //   var color = isLiked ? Colors.deepPurpleAccent : Colors.grey;
+                          //   Widget result;
+                          //   if (count == 0) {
+                          //     result = Text(
+                          //       "love",
+                          //       style: TextStyle(color: color),
+                          //     );
+                          //   } else
+                          //     result = Text(
+                          //       text,
+                          //       style: TextStyle(color: color),
+                          //     );
+                          //   return result;
+                          // },
+                        ),
+                      ),),
+
+                ],
               ),
               SizedBox(height: 8.0,),
               Padding(
@@ -197,8 +313,10 @@ class _ProductDetailsState extends State<ProductDetails> with SingleTickerProvid
                 InkWell(
                   onTap: (){
                     setState(() {
-                      _color = Colors.blue;
-                      _color2 = Colors.red;
+                      _color = myHexColor3;
+                      _color2 = Colors.grey[700];
+                      showOver =true;
+                      showSpec =false;
 
                     });
                   },
@@ -208,7 +326,7 @@ class _ProductDetailsState extends State<ProductDetails> with SingleTickerProvid
                     children: [
                       AnimatedContainer(duration: 11.seconds,
                       curve: Curves.easeIn,
-                      child: Text('Overview',style: TextStyle(color: _color))),
+                      child: Text('Overview',style: TextStyle(color: _color,fontWeight: FontWeight.w500))),
                       SizedBox(height: 10.0,),
                       AnimatedContainer(
                         curve: Curves.easeInOut,
@@ -224,9 +342,10 @@ class _ProductDetailsState extends State<ProductDetails> with SingleTickerProvid
                   InkWell(
                     onTap: (){
                       setState(() {
-                        _color2 = Colors.blue;
-                        _color = Colors.red;
-
+                        _color2 = myHexColor3;
+                        _color = Colors.grey[700];
+                        showOver =false;
+                        showSpec =true;
                       });
                     },
                     child: Column(
@@ -237,7 +356,7 @@ class _ProductDetailsState extends State<ProductDetails> with SingleTickerProvid
                             curve: Curves.easeIn,
                             duration: 14.seconds,
 
-                        child: Text('Specifications',style: TextStyle(color: _color2),)),
+                        child: Text('Specifications',style: TextStyle(color: _color2,fontWeight: FontWeight.w500),)),
                         SizedBox(height: 10.0,),
                         AnimatedContainer(
                           curve: Curves.easeInOut,
@@ -252,47 +371,185 @@ class _ProductDetailsState extends State<ProductDetails> with SingleTickerProvid
                   )
                 ],
               ),
-              Padding(
-                padding: const EdgeInsets.symmetric(vertical: 14.0,horizontal: 12),
-                child: Text('Specifications',style: TextStyle(color: Colors.black,fontSize: 12,fontWeight: FontWeight.w800),),
-              ),
-              Padding(
-                padding: const EdgeInsets.symmetric(vertical: 12.0,horizontal: 12),
-                child: Row(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    Padding(
-                      padding:  EdgeInsets.only(right: screenSize.width *0.2+8,left: 0),
-                      child: Text('Specifications',style: TextStyle(color: Colors.grey[900],fontSize: 11 ,fontWeight: FontWeight.w600),),
-                    ),
-                    SizedBox(
-                        width: 210,
-                        child: Text('Specifications Specifications Specifications Specifications Specifications',maxLines: 3,style: TextStyle(fontWeight: FontWeight.w500,color: Colors.grey[800],fontSize: 11, ),)),
-                    Spacer()
-                  ],
-                ),
-              ),
+             showSpec ?Column(
+               crossAxisAlignment: CrossAxisAlignment.start,
+               children: [
+                 Padding(
+                   padding: const EdgeInsets.symmetric(vertical: 14.0,horizontal: 12),
+                   child: Text('Specifications',style: TextStyle(color: Colors.black,fontSize: 12,fontWeight: FontWeight.w800),),
+                 ),
+                 Padding(
+                   padding: const EdgeInsets.symmetric(vertical: 12.0,horizontal: 12),
+                   child: Row(
+                     crossAxisAlignment: CrossAxisAlignment.start,
+                     children: [
+                       SizedBox(
+                           child: Text('Specifications',style: TextStyle(color: Colors.grey[900],fontSize: 11 ,fontWeight: FontWeight.w600),),width: screenSize.width*.5-30),
+                       SizedBox(
+                           width: 210,
+                           child: Text('Specifications Specifications Specifications Specifications Specifications',maxLines: 3,style: TextStyle(fontWeight: FontWeight.w500,color: Colors.grey[800],fontSize: 11, ),)),
+                       Spacer()
+                     ],
+                   ),
+                 ),
+                 Container(
+                   color: myHexColor3.withOpacity(0.4),
+                   child: Padding(
+                     padding: const EdgeInsets.symmetric(vertical: 12.0,horizontal: 12),
+                     child: Row(
+                       crossAxisAlignment: CrossAxisAlignment.start,
+                       children: [
+                         SizedBox(child: Text('Color name',style: TextStyle(color: Colors.grey[900],fontSize: 11 ,fontWeight: FontWeight.w600),),width: screenSize.width*.5-30),
+                         SizedBox(
+                             width: 210,
+                             child: Text('Red ',maxLines: 3,style: TextStyle(color: Colors.grey[800],fontSize: 11,fontWeight: FontWeight.w500 ),)),
+                         Spacer()
+                       ],
+                     ),
+                   ),
+                 ),
+                 Padding(
+                   padding: const EdgeInsets.symmetric(vertical: 12.0,horizontal: 12),
+                   child: Row(
+                     crossAxisAlignment: CrossAxisAlignment.start,
+                     children: [
+                       SizedBox(
+                           width: screenSize.width*.5-30,
+                           child: Text('Department',style: TextStyle(color: Colors.grey[900],fontSize: 11 ,fontWeight: FontWeight.w600),)),
+                       Text('Specifications',maxLines: 3,style: TextStyle(fontWeight: FontWeight.w500,color: Colors.grey[800],fontSize: 11, ),),
+                       Spacer()
+                     ],
+                   ),
+                 ),
+                 Container(
+                   color: myHexColor3.withOpacity(0.4),
+                   child: Padding(
+                     padding: const EdgeInsets.symmetric(vertical: 12.0,horizontal: 12),
+                     child: Row(
+                       crossAxisAlignment: CrossAxisAlignment.start,
+                       children: [
+                         SizedBox(
+                             width: screenSize.width*.5-30,
+                             child: Text('Fit',style: TextStyle(color: Colors.grey[900],fontSize: 11 ,fontWeight: FontWeight.w600),)),
+                         Text('Relaxed ',maxLines: 3,style: TextStyle(color: Colors.grey[800],fontSize: 11,fontWeight: FontWeight.w500 ),),
+                         Spacer()
+                       ],
+                     ),
+                   ),
+                 ),
+                 Padding(
+                   padding: const EdgeInsets.symmetric(vertical: 12.0,horizontal: 12),
+                   child: Row(
+                     crossAxisAlignment: CrossAxisAlignment.start,
+                     children: [
+                       SizedBox(
+                           width: screenSize.width*.5-30,
+                           child: Text('Material',style: TextStyle(color: Colors.grey[900],fontSize: 11 ,fontWeight: FontWeight.w600),)),
+                       Text('Cotton',maxLines: 3,style: TextStyle(fontWeight: FontWeight.w500,color: Colors.grey[800],fontSize: 11, ),),
+                       Spacer()
+                     ],
+                   ),
+                 ),
+                 Container(
+                   color: myHexColor3.withOpacity(0.4),
+                   child: Padding(
+                     padding: const EdgeInsets.symmetric(vertical: 12.0,horizontal: 12),
+                     child: Row(
+                       crossAxisAlignment: CrossAxisAlignment.start,
+                       children: [
+                         SizedBox(
+                             width: screenSize.width*.5-30,
+                             child: Text('Material Composition',style: TextStyle(color: Colors.grey[900],fontSize: 11 ,fontWeight: FontWeight.w600),)),
+                         Text('100% Organic Cotton ',overflow: TextOverflow.ellipsis,maxLines: 3,style: TextStyle(color: Colors.grey[800],fontSize: 11,fontWeight: FontWeight.w500 ),),
+                         Spacer()
+                       ],
+                     ),
+                   ),
+                 ),
+                 Padding(
+                   padding: const EdgeInsets.symmetric(vertical: 12.0,horizontal: 12),
+                   child: Row(
+                     crossAxisAlignment: CrossAxisAlignment.start,
+                     children: [
+                       SizedBox(
+                           width: screenSize.width*.5-30,
+                           child: Text('Department',style: TextStyle(color: Colors.grey[900],fontSize: 11 ,fontWeight: FontWeight.w600),)),
+                       Text('Specifications',maxLines: 3,style: TextStyle(fontWeight: FontWeight.w500,color: Colors.grey[800],fontSize: 11, ),),
+                       Spacer()
+                     ],
+                   ),
+                 ),
+                 Container(
+                   color: myHexColor3.withOpacity(0.4),
+                   child: Padding(
+                     padding: const EdgeInsets.symmetric(vertical: 12.0,horizontal: 12),
+                     child: Row(
+                       crossAxisAlignment: CrossAxisAlignment.start,
+                       children: [
+                         SizedBox(
+                             width: screenSize.width*.5-30,
+                             child: Text('Color name',style: TextStyle(color: Colors.grey[900],fontSize: 11 ,fontWeight: FontWeight.w600),)),
+                         Text('Red ',maxLines: 3,style: TextStyle(color: Colors.grey[800],fontSize: 11,fontWeight: FontWeight.w500 ),),
+                         Spacer()
+                       ],
+                     ),
+                   ),
+                 ),
+                 Padding(
+                   padding: const EdgeInsets.symmetric(vertical: 12.0,horizontal: 12),
+                   child: Row(
+                     crossAxisAlignment: CrossAxisAlignment.start,
+                     children: [
+                       SizedBox(
+                           width: screenSize.width*.5-30,
+                           child: Text('Model Number',style: TextStyle(color: Colors.grey[900],fontSize: 11 ,fontWeight: FontWeight.w600),)),
+                       Text('M33333',maxLines: 3,style: TextStyle(fontWeight: FontWeight.w500,color: Colors.grey[800],fontSize: 11, ),),
+                       Spacer()
+                     ],
+                   ),
+                 ),
+                 Container(
+                   color: myHexColor3.withOpacity(0.4),
+                   child: Padding(
+                     padding: const EdgeInsets.symmetric(vertical: 12.0,horizontal: 12),
+                     child: Row(
+                       crossAxisAlignment: CrossAxisAlignment.start,
+                       children: [
+                         SizedBox(
+                             width: screenSize.width*.5-30,
+                             child: Text('Season Code',style: TextStyle(color: Colors.grey[900],fontSize: 11 ,fontWeight: FontWeight.w600),)),
+                         Text('SS',maxLines: 3,style: TextStyle(color: Colors.grey[800],fontSize: 11,fontWeight: FontWeight.w500 ),),
+                         Spacer()
+                       ],
+                     ),
+                   ),
+                 ),
 
-              Container(
-                color: myHexColor3,
-                child: Padding(
-                  padding: const EdgeInsets.symmetric(vertical: 12.0,horizontal: 12),
-                  child: Row(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      Padding(
-                        padding:  EdgeInsets.only(right: screenSize.width *0.2+8,left: 0),
-                        child: Text('Specifications',style: TextStyle(color: Colors.grey[900],fontSize: 11 ,fontWeight: FontWeight.w600),),
-                      ),
-                      SizedBox(
-                          width: 210,
-                          child: Text('Specifications Specifications',maxLines: 3,style: TextStyle(color: Colors.grey[800],fontSize: 11,fontWeight: FontWeight.w500 ),)),
-                      Spacer()
-                    ],
-                  ),
-                ),
+               ],
+             ):Container(
+               child: Column(
+                 crossAxisAlignment: CrossAxisAlignment.start,
+                 children: [
+                   Padding(
+                     padding: const EdgeInsets.only(right: 12.0,left: 12.0,top: 22.0,bottom: 10),
+                     child: Text('Highlights',style: TextStyle(color: Colors.black,fontSize: 12,fontWeight: FontWeight.w800),),
+                   ),
+                   Padding(
+                     padding: const EdgeInsets.symmetric(vertical: 1.0,horizontal: 12),
+                     child: Text('Highlights..........eee eeedsdsde fefe eeded edfed efdede efef eefde ee 6h6yh rrg tgtt trgf rf  rrrtrf rtrf.',maxLines: 6,style: TextStyle(color: Colors.black,fontSize: 12,fontWeight: FontWeight.w300),),
+                   ),
+                   SizedBox(height: 50,)
+                 ],
+               ),
+             ),
+
+              SizedBox(height: 60,),
+              Padding(
+                padding: const EdgeInsets.only(right: 12.0,left: 12.0,top: 22.0,bottom: 10),
+                child: Text('More from ${widget.product!.brand}',style: TextStyle(color: Colors.black,fontSize: 12,fontWeight: FontWeight.w800),),
               ),
-              SizedBox(height: 60,)
+              buildHorizontalListOfProducts(true),
+              SizedBox(height: 60,),
 
             ],
           ),

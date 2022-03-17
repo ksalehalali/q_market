@@ -48,6 +48,7 @@ dependencies:
   sliding_up_panel:
   geolocator:
   flutter_svg: ^1.0.3
+  like_button: ^2.0.4
 
 
 dev_dependencies:

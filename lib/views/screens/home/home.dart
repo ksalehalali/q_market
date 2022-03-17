@@ -9,6 +9,7 @@ import 'package:q_market/views/screens/show_product/product_item.dart';
 import '../../address/address_on_map.dart';
 import '../../address/search_address_screen.dart';
 import '../../widgets/departments_shpe.dart';
+import '../../widgets/horizontal_listOfProducts.dart';
 import 'address_area.dart';
 import 'head_home_screen.dart';
 
@@ -98,6 +99,9 @@ class _HomeScreenState extends State<HomeScreen> {
       child: Scaffold(
         body: ListView(
           children: [
+            const SizedBox(
+              height: 10.0,
+            ),
             headHomeScreen(MediaQuery.of(context)),
             const SizedBox(
               height: 6.0,
@@ -204,7 +208,7 @@ class _HomeScreenState extends State<HomeScreen> {
                   SizedBox(
                     height: 6.0,
                   ),
-                  _buildHorizontalListOfProducts(),
+                  buildHorizontalListOfProducts(false),
                   SizedBox(
                     height: 12.0,
                   ),
@@ -319,39 +323,7 @@ class _HomeScreenState extends State<HomeScreen> {
     );
   }
 
-  Widget _buildHorizontalListOfProducts() {
-    final screenSize = Get.size;
-    return SizedBox(
-      height: screenSize.height * 0.4 - 28,
-      child: FutureBuilder(
-          builder: (context, data) =>
-              data.connectionState == ConnectionState.waiting
-                  ? SizedBox(
-                      width: 110,
-                      height: 110,
-                      child: FittedBox(
-                        child: CircularProgressIndicator.adaptive(
-                          strokeWidth: 0.9,
-                        ),
-                      ),
-                    )
-                  : CustomScrollView(
-                      scrollDirection: Axis.horizontal,
-                      slivers: [
-                        SliverList(
-                          delegate: SliverChildBuilderDelegate(
-                            (context, index) {
-                              return ProductItemCard(
-                            product: productController.latestProducts[index],);
-                            },
-                            childCount:3,
-                            semanticIndexOffset: 2,
-                          ),
-                        )
-                      ],
-                    )),
-    );
-  }
+
 
   Widget _buildHorizontalListOfRecommendedProducts() {
     final screenSize = Get.size;
@@ -377,7 +349,7 @@ class _HomeScreenState extends State<HomeScreen> {
                           delegate: SliverChildBuilderDelegate(
                             (context, index) {
                               return ProductItemCard(
-                                  product: productController.latestProducts[index]);
+                                  product: productController.latestProducts[index],fromDetails: false,);
                             },
                             childCount: 3,
                             semanticIndexOffset: 2,
@@ -412,7 +384,7 @@ class _HomeScreenState extends State<HomeScreen> {
                           delegate: SliverChildBuilderDelegate(
                             (context, index) {
                               return ProductItemCard(
-                                  product: productController.latestProducts[index]
+                                  product: productController.latestProducts[index],fromDetails: false,
                               );
                             },
                             childCount: 3,
