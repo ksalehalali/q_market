@@ -8,6 +8,9 @@ import '../views/address/config-maps.dart';
 class AddressController extends GetxController{
 var myCurrentLoc = LatLng(0.0, 0.0).obs;
 var areaLoc = LatLng(0.0, 0.0).obs;
+var addressWidgetSize=20.0.obs;
+var addressWidgetIconSize=17.0.obs;
+
 
 var pinAddress =''.obs;
 List placePredictionList = [].obs;
@@ -22,6 +25,17 @@ updateCurrentLoc(LatLng latLng){
   myCurrentLoc.value = latLng;
   print(myCurrentLoc.value.latitude);
   update();
+}
+
+showHideAddress(bool show){
+ if(show){
+   addressWidgetSize.value =20;
+   addressWidgetIconSize.value = 17.0;
+ }else{
+   addressWidgetIconSize.value = 0.0;
+   addressWidgetSize.value=0.0;
+ }
+ update();
 }
 
 void findPlace(String placeName) async {

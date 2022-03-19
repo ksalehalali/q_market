@@ -3,6 +3,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:q_market/Assistants/globals.dart';
+import 'package:q_market/controllers/address_location_controller.dart';
 import 'package:q_market/controllers/product_controller.dart';
 import 'package:q_market/views/screens/home/search_area_des.dart';
 import 'package:q_market/views/screens/show_product/product_item.dart';
@@ -22,7 +23,9 @@ class HomeScreen extends StatefulWidget {
 
 class _HomeScreenState extends State<HomeScreen> {
   final ProductsController productController = Get.find();
+  final AddressController addressController = Get.find();
 
+  ScrollController? scrollController;
   List<Map> deps = [
     {
       'title': "Food",
@@ -90,205 +93,243 @@ class _HomeScreenState extends State<HomeScreen> {
           'assets/images/villaggio-mall-shopping-center-in-doha-qatar-with--1433715784114_rs.jpeg'
     },
   ];
-
   @override
+  void initState() {
+    // TODO: implement initState
+    super.initState();
+    scrollController = ScrollController();
+    scrollController!.addListener(listenBottom);
+  }
+  void listenBottom() {
+    print('scroll 200');
+    //final direction = controller.position.userScrollDirection;
+    if (scrollController!.position.pixels >= 200) {
+      addressController.showHideAddress(false);
+
+    } else {
+      addressController.showHideAddress(true);
+    }
+  }
+  @override
+  void dispose() {
+    // TODO: implement dispose
+    super.dispose();
+    scrollController!.removeListener(listenBottom);
+    scrollController!.dispose();
+  }
+  @override
+
   Widget build(BuildContext context) {
     final screenSize = Get.size;
 
-    return SafeArea(
-      child: Scaffold(
-        body: ListView(
-          children: [
-            const SizedBox(
-              height: 10.0,
-            ),
-            headHomeScreen(MediaQuery.of(context)),
-            const SizedBox(
-              height: 6.0,
-            ),
-            const SearchAreaDesign(),
-            Container(
-              padding: EdgeInsets.zero,
-              margin: EdgeInsets.zero,
-              height: screenSize.height - 212,
-              width: screenSize.width,
-              child: ListView(
-                padding: EdgeInsets.zero,
-                children: [
-                  InkWell(
-                      onTap: () {
-                        Navigator.push(
-                            context,
-                            MaterialPageRoute(
-                                builder: (context) => AddressOnMap()));
-                      },
-                      child: Padding(
-                        padding: const EdgeInsets.symmetric(
-                            vertical: 2.0, horizontal: 6.0),
-                        child: addressHomeScreen(MediaQuery.of(context)),
-                      )),
-                  SizedBox(
-                    height: 6.0,
-                  ),
-                  SizedBox(
-                    height: 160.0,
-                    width: double.infinity,
-                    child: Carousel(
-                      dotSize: 6.0,
-                      dotSpacing: 15.0,
-                      autoplayDuration: 4.seconds,
-                      animationDuration: 500.milliseconds,
-                      dotBgColor: Colors.transparent.withOpacity(0.1),
-                      dotColor: Colors.white,
-                      dotIncreasedColor: Colors.red,
-                      dotPosition: DotPosition.bottomLeft,
-                      images: [
-                        Image.asset(
-                            'assets/images/digital-marketing-courses-in-qatar-featured-image.jpeg',
-                            fit: BoxFit.cover),
-                        Image.asset('assets/images/Ecommerce-in-Qatar.jpeg',
-                            fit: BoxFit.cover),
-                        Image.asset(
-                            'assets/images/Qatar-Online-Marketing-Profile.jpeg',
-                            fit: BoxFit.cover),
-                        Image.asset(
-                            'assets/images/villaggio-mall-shopping-center-in-doha-qatar-with--1433715784114_rs.jpeg',
-                            fit: BoxFit.cover),
-                      ],
-                    ),
-                  ),
-                  SizedBox(
-                    height: 22.0,
-                  ),
-                  const Padding(
-                    padding: EdgeInsets.symmetric(horizontal: 12.0),
-                    child: Text(
-                      'Shop by category',
-                      style:
-                          TextStyle(fontWeight: FontWeight.bold, fontSize: 14),
-                    ),
-                  ),
-                  SizedBox(
-                      height: 230, width: 400, child: _buildDepartmentsList()),
-                  SizedBox(
-                    height: 1.0,
-                  ),
-                  Row(
+    return Container(
+      color: myHexColor5,
+      child: SafeArea(
+        child: Scaffold(
+          body: SingleChildScrollView(
+            child: Column(
+              children: [
+                const SizedBox(
+                  height: 10.0,
+                ),
+                headHomeScreen(MediaQuery.of(context)),
+                const SizedBox(
+                  height: 6.0,
+                ),
+                const SearchAreaDesign(),
+                const SizedBox(
+                  height: 4.0,
+                ),
+                Obx(()=> AnimatedContainer(
+                  duration: 400.milliseconds,
+                  height: addressController.addressWidgetSize.value,
+                  child: InkWell(
+                    onTap: () {
+                      Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                              builder: (context) => AddressOnMap()));
+                    },
+                    child: Padding(
+                          padding: const EdgeInsets.symmetric(
+                              vertical: 2.0, horizontal: 6.0),
+                          child: addressHomeScreen(MediaQuery.of(context)),
+                        ),
+                      ),
+                    )),
+                Container(
+                  padding: EdgeInsets.zero,
+                  margin: EdgeInsets.zero,
+                  height: screenSize.height - 212,
+                  width: screenSize.width,
+                  child: ListView(
+                    controller: scrollController,
+                    padding: EdgeInsets.zero,
                     children: [
+                      SizedBox(
+                        height: 16.0,
+                      ),
+                      SizedBox(
+                        height: 160.0,
+                        width: double.infinity,
+                        child: Carousel(
+                          dotSize: 6.0,
+                          dotSpacing: 15.0,
+                          autoplayDuration: 4.seconds,
+                          animationDuration: 500.milliseconds,
+                          dotBgColor: Colors.transparent.withOpacity(0.1),
+                          dotColor: Colors.white,
+                          dotIncreasedColor: Colors.red,
+                          dotPosition: DotPosition.bottomLeft,
+                          images: [
+                            Image.asset(
+                                'assets/images/digital-marketing-courses-in-qatar-featured-image.jpeg',
+                                fit: BoxFit.cover),
+                            Image.asset('assets/images/Ecommerce-in-Qatar.jpeg',
+                                fit: BoxFit.cover),
+                            Image.asset(
+                                'assets/images/Qatar-Online-Marketing-Profile.jpeg',
+                                fit: BoxFit.cover),
+                            Image.asset(
+                                'assets/images/villaggio-mall-shopping-center-in-doha-qatar-with--1433715784114_rs.jpeg',
+                                fit: BoxFit.cover),
+                          ],
+                        ),
+                      ),
+                      SizedBox(
+                        height: 22.0,
+                      ),
                       const Padding(
-                        padding: EdgeInsets.only(
-                          top: 0.0,
-                          left: 12,
-                        ),
+                        padding: EdgeInsets.symmetric(horizontal: 12.0),
                         child: Text(
-                          'Latest Products',
-                          style: TextStyle(
-                              fontWeight: FontWeight.bold, fontSize: 14),
+                          'Shop by category',
+                          style:
+                              TextStyle(fontWeight: FontWeight.bold, fontSize: 14),
                         ),
                       ),
-                      Spacer(),
-                      Padding(
-                        padding:
-                            EdgeInsets.only(top: 0.0, left: 12, right: 5.0),
-                        child: Text(
-                          'View all',
-                          style: TextStyle(
-                              fontWeight: FontWeight.bold,
-                              fontSize: 13,
-                              color: Colors.grey[700]),
-                        ),
+                      SizedBox(
+                          height: 230, width: 400, child: _buildDepartmentsList()),
+                      SizedBox(
+                        height: 1.0,
                       ),
-                      Icon(
-                        Icons.arrow_forward_ios_rounded,
-                        size: 14,
-                        color: Colors.grey[700],
-                      )
+                      Row(
+                        children: [
+                          const Padding(
+                            padding: EdgeInsets.only(
+                              top: 0.0,
+                              left: 12,
+                            ),
+                            child: Text(
+                              'Latest Products',
+                              style: TextStyle(
+                                  fontWeight: FontWeight.bold, fontSize: 14),
+                            ),
+                          ),
+                          Spacer(),
+                          Padding(
+                            padding:
+                                EdgeInsets.only(top: 0.0, left: 12, right: 5.0),
+                            child: Text(
+                              'View all',
+                              style: TextStyle(
+                                  fontWeight: FontWeight.bold,
+                                  fontSize: 13,
+                                  color: Colors.grey[700]),
+                            ),
+                          ),
+                          Icon(
+                            Icons.arrow_forward_ios_rounded,
+                            size: 14,
+                            color: Colors.grey[700],
+                          )
+                        ],
+                      ),
+                      SizedBox(
+                        height: 6.0,
+                      ),
+                      buildHorizontalListOfProducts(false),
+                      SizedBox(
+                        height: 12.0,
+                      ),
+                      Row(
+                        children: [
+                          const Padding(
+                            padding: EdgeInsets.only(top: 0.0, left: 12),
+                            child: Text(
+                              'Recommended for you',
+                              style: TextStyle(
+                                  fontWeight: FontWeight.bold, fontSize: 14),
+                            ),
+                          ),
+                          Spacer(),
+                          Padding(
+                            padding:
+                                EdgeInsets.only(top: 0.0, left: 12, right: 5.0),
+                            child: Text(
+                              'View all',
+                              style: TextStyle(
+                                  fontWeight: FontWeight.bold,
+                                  fontSize: 13,
+                                  color: Colors.grey[700]),
+                            ),
+                          ),
+                          Icon(
+                            Icons.arrow_forward_ios_rounded,
+                            size: 14,
+                            color: Colors.grey[700],
+                          )
+                        ],
+                      ),
+                      SizedBox(
+                        height: 6.0,
+                      ),
+                      _buildHorizontalListOfRecommendedProducts(),
+                      SizedBox(
+                        height: 12.0,
+                      ),
+                      Row(
+                        children: [
+                          const Padding(
+                            padding: EdgeInsets.only(top: 0.0, left: 12),
+                            child: Text(
+                              'Offers',
+                              style: TextStyle(
+                                  fontWeight: FontWeight.bold, fontSize: 14),
+                            ),
+                          ),
+                          Spacer(),
+                          Padding(
+                            padding:
+                                EdgeInsets.only(top: 0.0, left: 12, right: 5.0),
+                            child: Text(
+                              'View all',
+                              style: TextStyle(
+                                  fontWeight: FontWeight.bold,
+                                  fontSize: 13,
+                                  color: Colors.grey[700]),
+                            ),
+                          ),
+                          Icon(
+                            Icons.arrow_forward_ios_rounded,
+                            size: 14,
+                            color: Colors.grey[700],
+                          )
+                        ],
+                      ),
+                      SizedBox(
+                        height: 6.0,
+                      ),
+                      _buildHorizontalListOfOffersProducts(),
+                      SizedBox(
+                        height: 22,
+                      ),
+                      _buildOfferArea()
                     ],
                   ),
-                  SizedBox(
-                    height: 6.0,
-                  ),
-                  buildHorizontalListOfProducts(false),
-                  SizedBox(
-                    height: 12.0,
-                  ),
-                  Row(
-                    children: [
-                      const Padding(
-                        padding: EdgeInsets.only(top: 0.0, left: 12),
-                        child: Text(
-                          'Recommended for you',
-                          style: TextStyle(
-                              fontWeight: FontWeight.bold, fontSize: 14),
-                        ),
-                      ),
-                      Spacer(),
-                      Padding(
-                        padding:
-                            EdgeInsets.only(top: 0.0, left: 12, right: 5.0),
-                        child: Text(
-                          'View all',
-                          style: TextStyle(
-                              fontWeight: FontWeight.bold,
-                              fontSize: 13,
-                              color: Colors.grey[700]),
-                        ),
-                      ),
-                      Icon(
-                        Icons.arrow_forward_ios_rounded,
-                        size: 14,
-                        color: Colors.grey[700],
-                      )
-                    ],
-                  ),
-                  SizedBox(
-                    height: 6.0,
-                  ),
-                  _buildHorizontalListOfRecommendedProducts(),
-                  SizedBox(
-                    height: 12.0,
-                  ),
-                  Row(
-                    children: [
-                      const Padding(
-                        padding: EdgeInsets.only(top: 0.0, left: 12),
-                        child: Text(
-                          'Offers',
-                          style: TextStyle(
-                              fontWeight: FontWeight.bold, fontSize: 14),
-                        ),
-                      ),
-                      Spacer(),
-                      Padding(
-                        padding:
-                            EdgeInsets.only(top: 0.0, left: 12, right: 5.0),
-                        child: Text(
-                          'View all',
-                          style: TextStyle(
-                              fontWeight: FontWeight.bold,
-                              fontSize: 13,
-                              color: Colors.grey[700]),
-                        ),
-                      ),
-                      Icon(
-                        Icons.arrow_forward_ios_rounded,
-                        size: 14,
-                        color: Colors.grey[700],
-                      )
-                    ],
-                  ),
-                  SizedBox(
-                    height: 6.0,
-                  ),
-                  _buildHorizontalListOfOffersProducts(),
-                  SizedBox(
-                    height: 22,
-                  ),
-                  _buildOfferArea()
-                ],
-              ),
+                ),
+              ],
             ),
-          ],
+          ),
         ),
       ),
     );

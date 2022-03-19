@@ -46,515 +46,499 @@ class _ProductDetailsState extends State<ProductDetails> with SingleTickerProvid
   Widget build(BuildContext context) {
     double buttonSize =22;
     final screenSize = Get.size;
-    return SafeArea(
-      top: true,
-      bottom: false,
-      child: Scaffold(
+    return Container(
+      color: myHexColor,
+      child: SafeArea(
+        top: true,
+        bottom: false,
+        child: Scaffold(
 
-        body: SizedBox(
-          height: screenSize.height,
-          width: screenSize.width,
-          child: ListView(
-            padding: EdgeInsets.zero,
-            shrinkWrap: true,
-            children: [
-              const SizedBox(
-                height: 6.0,
-              ),
-              Row(
-                children:  [
-                  SizedBox(width: 12.0,),
-                  InkWell(
-                      onTap: (){
-                        Navigator.of(context).pop();
-                      },
-                      child: Icon(Icons.arrow_back_ios,color: Colors.grey[800],size: 32,)),
-                  Expanded(child: SearchAreaDesign()),
+          body: SizedBox(
+            height: screenSize.height,
+            width: screenSize.width,
+            child: ListView(
+              padding: EdgeInsets.zero,
+              shrinkWrap: true,
+              children: [
+                const SizedBox(
+                  height: 4.0,
+                ),
+                Row(
+                  children:  [
+                    SizedBox(width: 12.0,),
+                    InkWell(
+                        onTap: (){
+                          Navigator.of(context).pop();
+                        },
+                        child: SvgPicture.asset(
+                            'assets/icons/left arrow.svg',
+                            alignment: Alignment.center,
+                            //color:,
+                            height:buttonSize,
+                            width: buttonSize,
+                            semanticsLabel: 'A red up arrow'
+                        ),),
+                    SizedBox(width: 2.0,),
 
-                ],
-              ),
-              SizedBox(height: 4,),
-              Stack(
-                children: [
+                    Expanded(child: SearchAreaDesign()),
 
-                  SizedBox(
-                    height: 360.0,
-                    width: double.infinity,
-                    child: Carousel(
-                      dotSize: 4.0,
-                      dotSpacing: 15.0,
-                      autoplay: false,
-                      autoplayDuration: 4.seconds,
-                      animationDuration: 500.milliseconds,
-                      dotBgColor: Colors.transparent.withOpacity(0.1),
-                      dotColor: Colors.white,
-                      dotIncreasedColor: Colors.red,
-                      dotPosition: DotPosition.bottomLeft,
-                      images: [
-                        Image.network(
-                            widget.product!.imageUrl!,
-                            fit: BoxFit.cover),
-                        Image.network(
-                            widget.product!.imageUrl!,
-                            fit: BoxFit.cover),
-                        Image.network(
-                            widget.product!.imageUrl!,
-                            fit: BoxFit.cover),
-                      ],
-                    ),
-                  ),
-                  Positioned(
-                      top: 8.0,
-                      left: 10.0,
-                      child: Container(
-                        padding: EdgeInsets.zero,
-                        margin: EdgeInsets.zero,
-                        width: screenSize.width*.1-5,
-                        height: screenSize.width*.1-5,
-                        decoration: BoxDecoration(
-                            borderRadius: BorderRadius.circular(100),
-                            color: Colors.white.withOpacity(.9)
-                        ),
-                        child: LikeButton(
-                          size: buttonSize,
-                          crossAxisAlignment: CrossAxisAlignment.center,
-                          mainAxisAlignment: MainAxisAlignment.center,
-                          padding: EdgeInsets.only(left:screenSize.width*.1-37,top: 2),
-                          circleColor:
-                          CircleColor(start: Color(0xff00ddff), end: Color(0xff0099cc)),
-                          bubblesColor: BubblesColor(
-                            dotPrimaryColor: Color(0xff33b5e5),
-                            dotSecondaryColor: Color(0xff0099cc),
-                          ),
-                          likeBuilder: (bool isLiked) {
-
-                            return SvgPicture.asset(
-                                'assets/icons/heart.svg',
-                                alignment: Alignment.center,
-                                color: isLiked ? myHexColor3 : Colors.grey,
-                                height:buttonSize,
-                                width: buttonSize,
-                                semanticsLabel: 'A red up arrow'
-                            );
-                          },
-                          //likeCount: 665,
-                          // countBuilder: (int? count, bool isLiked, String text) {
-                          //   var color = isLiked ? Colors.deepPurpleAccent : Colors.grey;
-                          //   Widget result;
-                          //   if (count == 0) {
-                          //     result = Text(
-                          //       "love",
-                          //       style: TextStyle(color: color),
-                          //     );
-                          //   } else
-                          //     result = Text(
-                          //       text,
-                          //       style: TextStyle(color: color),
-                          //     );
-                          //   return result;
-                          // },
-                        ),
-                      )),
-                  Positioned(
-                      top: screenSize.height *.1 -28,
-                      left: 10.0,
-                      child: Container(
-                        padding: EdgeInsets.zero,
-                        margin: EdgeInsets.zero,
-                        width: screenSize.width*.1-5,
-                        height: screenSize.width*.1-5,
-                        decoration: BoxDecoration(
-                            borderRadius: BorderRadius.circular(100),
-                            color: Colors.white.withOpacity(.9)
-                        ),
-                        child: LikeButton(
-                          size: buttonSize,
-                          crossAxisAlignment: CrossAxisAlignment.center,
-                          mainAxisAlignment: MainAxisAlignment.center,
-                         // padding: EdgeInsets.only(left:screenSize.width*.1-37,top: 2),
-                          circleColor:
-                          CircleColor(start: Color(0xff00ddff), end: Color(0xff0099cc)),
-                          bubblesColor: BubblesColor(
-                            dotPrimaryColor: Color(0xff33b5e5),
-                            dotSecondaryColor: Color(0xff0099cc),
-                          ),
-                          likeBuilder: (bool isLiked) {
-
-                            return SvgPicture.asset(
-                                'assets/icons/share3.svg',
-                                alignment: Alignment.center,
-                                color: isLiked ? myHexColor3 : Colors.grey,
-                                height:buttonSize,
-                                width: buttonSize,
-                                semanticsLabel: 'A red up arrow'
-                            );
-                          },
-                          //likeCount: 665,
-                          // countBuilder: (int? count, bool isLiked, String text) {
-                          //   var color = isLiked ? Colors.deepPurpleAccent : Colors.grey;
-                          //   Widget result;
-                          //   if (count == 0) {
-                          //     result = Text(
-                          //       "love",
-                          //       style: TextStyle(color: color),
-                          //     );
-                          //   } else
-                          //     result = Text(
-                          //       text,
-                          //       style: TextStyle(color: color),
-                          //     );
-                          //   return result;
-                          // },
-                        ),
-                      ),),
-
-                ],
-              ),
-              SizedBox(height: 8.0,),
-              Padding(
-                padding:  EdgeInsets.symmetric(horizontal: 12.0),
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    SizedBox(height: 12.0,),
-                    Text('${widget.product!.brand}',style: TextStyle(fontWeight: FontWeight.bold,fontSize: 16,color: myHexColor1),),
-                    SizedBox(height: screenSize.height*0.1 -70,),
-                    Text('${widget.product!.en_name}',style:  TextStyle(fontWeight: FontWeight.w700,fontSize: 14,color: Colors.black),),
-                    SizedBox(height: screenSize.height*0.1 -60,),
-                     Text('Size',style: TextStyle(fontWeight: FontWeight.w700,fontSize: 14,color: Colors.black),),
-
-                    _buildSizesOptions(),
-                    SizedBox(height: 22.0,),
-                    Container(
-                      decoration: BoxDecoration(
-                        borderRadius: BorderRadius.circular(6),
-                        border: Border.all(width: 1,   color: Colors.grey[500]!,
-                        )
-                      ),
-                      width: screenSize.width ,
-                      height: screenSize.height *0.1 -30,
-                      child: Row(
-                        children: [
-                          SizedBox(width: 10.0,),
-
-                          SvgPicture.asset(
-                              'assets/icons/shipping.svg',
-                              color: Colors.grey[600],
-                              height: 18.00,
-                              width: 18.0,
-                              semanticsLabel: 'A red up arrow'
-                          ),
-                          SizedBox(width: 10.0,),
-
-                          Text('Delivery time :'),
-                          Spacer(),
-                          Text(' Jan 28 - Jan 30'),
-                          SizedBox(width: screenSize.width *0.1-12,)
-
-                        ],
-                      ),
-                    )
                   ],
                 ),
-              ),
-              Padding(
-                padding: const EdgeInsets.symmetric(vertical: 14.0),
-                child: Container(
-                  margin: EdgeInsets.symmetric(horizontal: 0,vertical: 0),
-                  decoration: BoxDecoration(
-                    color: Colors.grey[300],
-                    borderRadius: BorderRadius.circular(3)
-                  ),
-                  child: Padding(
-                    padding: EdgeInsets.symmetric(vertical: 12),
-                    child: Container(
-                      color: Colors.white,
-                      child: Column(
-                        children: [
-                          Padding(
-                            padding: const EdgeInsets.symmetric(vertical: 18.0,horizontal: 12),
-                            child: Row(
-                              children:  [
-                                SvgPicture.asset(
-                                    'assets/images/svg/9593997931634472866.svg',
-                                   // color: Colors.black,
-                                    height: 21.00,
-                                    width: 21.0,
-                                    semanticsLabel: 'A red up arrow'
-                                ),
-                                SizedBox(width: 5.0,),
-                                const Text('Seller',style: TextStyle(
-                                  fontWeight: FontWeight.w600,
-                                  fontSize: 15
-                                ),),
-                                SizedBox(width: 8.0,),
+                SizedBox(height: 4,),
+                Stack(
+                  children: [
 
-                                 Text('QR Market',style: TextStyle(
-                                    fontWeight: FontWeight.w600,
-                                    fontSize: 16,
-                                  color: myHexColor3
-                                ),),
-                                Spacer(),
-                                Icon(Icons.keyboard_arrow_right)
-                              ],
-                            ),
-                          )
+                    SizedBox(
+                      height: 360.0,
+                      width: double.infinity,
+                      child: Carousel(
+                        dotSize: 4.0,
+                        dotSpacing: 15.0,
+                        autoplay: false,
+                        autoplayDuration: 4.seconds,
+                        animationDuration: 500.milliseconds,
+                        dotBgColor: Colors.transparent.withOpacity(0.1),
+                        dotColor: Colors.white,
+                        dotIncreasedColor: Colors.red,
+                        dotPosition: DotPosition.bottomLeft,
+                        images: [
+                          Image.network(
+                              widget.product!.imageUrl!,
+                              fit: BoxFit.cover),
+                          Image.network(
+                              widget.product!.imageUrl!,
+                              fit: BoxFit.cover),
+                          Image.network(
+                              widget.product!.imageUrl!,
+                              fit: BoxFit.cover),
                         ],
                       ),
                     ),
-                  ),
+                    Positioned(
+                        top: 8.0,
+                        left: 10.0,
+                        child: Container(
+                          padding: EdgeInsets.zero,
+                          margin: EdgeInsets.zero,
+                          width: screenSize.width*.1-5,
+                          height: screenSize.width*.1-5,
+                          decoration: BoxDecoration(
+                              borderRadius: BorderRadius.circular(100),
+                              color: Colors.white.withOpacity(.9)
+                          ),
+                          child: LikeButton(
+                            size: buttonSize,
+                            crossAxisAlignment: CrossAxisAlignment.center,
+                            mainAxisAlignment: MainAxisAlignment.center,
+                            padding: EdgeInsets.only(left:screenSize.width*.1-37,top: 2),
+                            circleColor:
+                            CircleColor(start: Color(0xff00ddff), end: Color(0xff0099cc)),
+                            bubblesColor: BubblesColor(
+                              dotPrimaryColor: Color(0xff33b5e5),
+                              dotSecondaryColor: Color(0xff0099cc),
+                            ),
+                            likeBuilder: (bool isLiked) {
 
+                              return SvgPicture.asset(
+                                  'assets/icons/heart.svg',
+                                  alignment: Alignment.center,
+                                  color: isLiked ? myHexColor3 : Colors.grey,
+                                  height:buttonSize,
+                                  width: buttonSize,
+                                  semanticsLabel: 'A red up arrow'
+                              );
+                            },
+                          ),
+                        )),
+                    Positioned(
+                        top: screenSize.height *.1 -28,
+                        left: 10.0,
+                        child: Container(
+                          padding: EdgeInsets.zero,
+                          margin: EdgeInsets.zero,
+                          width: screenSize.width*.1-5,
+                          height: screenSize.width*.1-5,
+                          decoration: BoxDecoration(
+                              borderRadius: BorderRadius.circular(100),
+                              color: Colors.white.withOpacity(.9)
+                          ),
+                          child: LikeButton(
+                            size: buttonSize,
+                            crossAxisAlignment: CrossAxisAlignment.center,
+                            mainAxisAlignment: MainAxisAlignment.center,
+                            onTap:(isLiked)async{
+                              print('share');
+                              return isLiked;
+                            },
+                            padding: EdgeInsets.only(left:screenSize.width*.1-37,top: 2),
+                            circleColor:
+                            CircleColor(start: Colors.grey, end: Colors.grey),
+                            bubblesColor: BubblesColor(
+                              dotPrimaryColor: Color(0xff33b5e5),
+                              dotSecondaryColor: Color(0xff0099cc),
+                            ),
+                            likeBuilder: (bool isLiked) {
+
+                              return SvgPicture.asset(
+                                  'assets/icons/share3.svg',
+                                  alignment: Alignment.center,
+                                  color: isLiked ? myHexColor3 : Colors.grey,
+                                  height:buttonSize,
+                                  width: buttonSize,
+                                  semanticsLabel: 'A red up arrow'
+                              );
+                            },
+                          ),
+                        ),
+
+                    )],
                 ),
-              ),
-              Row(
-                crossAxisAlignment: CrossAxisAlignment.center,
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: [
-                InkWell(
-                  onTap: (){
-                    setState(() {
-                      _color = myHexColor3;
-                      _color2 = Colors.grey[700];
-                      showOver =true;
-                      showSpec =false;
-
-                    });
-                  },
+                SizedBox(height: 8.0,),
+                Padding(
+                  padding:  EdgeInsets.symmetric(horizontal: 12.0),
                   child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.center,
-                    mainAxisAlignment: MainAxisAlignment.center,
+                    crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
-                      AnimatedContainer(duration: 11.seconds,
-                      curve: Curves.easeIn,
-                      child: Text('Overview',style: TextStyle(color: _color,fontWeight: FontWeight.w500))),
-                      SizedBox(height: 10.0,),
-                      AnimatedContainer(
-                        curve: Curves.easeInOut,
-                            width:screenSize.width/2,
-                            height: 2.5,
-                            color: _color,
-                        duration: 900.milliseconds ,
+                      SizedBox(height: 12.0,),
+                      Text('${widget.product!.brand}',style: TextStyle(fontWeight: FontWeight.bold,fontSize: 16,color: myHexColor1),),
+                      SizedBox(height: screenSize.height*0.1 -70,),
+                      Text('${widget.product!.en_name}',style:  TextStyle(fontWeight: FontWeight.w700,fontSize: 14,color: Colors.black),),
+                      SizedBox(height: screenSize.height*0.1 -60,),
+                       Text('Size',style: TextStyle(fontWeight: FontWeight.w700,fontSize: 14,color: Colors.black),),
 
+                      _buildSizesOptions(),
+                      SizedBox(height: 22.0,),
+                      Container(
+                        decoration: BoxDecoration(
+                          borderRadius: BorderRadius.circular(6),
+                          border: Border.all(width: 1,   color: Colors.grey[500]!,
+                          )
+                        ),
+                        width: screenSize.width ,
+                        height: screenSize.height *0.1 -30,
+                        child: Row(
+                          children: [
+                            SizedBox(width: 10.0,),
+
+                            SvgPicture.asset(
+                                'assets/icons/shipping.svg',
+                                color: Colors.grey[600],
+                                height: 18.00,
+                                width: 18.0,
+                                semanticsLabel: 'A red up arrow'
+                            ),
+                            SizedBox(width: 10.0,),
+
+                            Text('Delivery time :'),
+                            Spacer(),
+                            Text(' Jan 28 - Jan 30'),
+                            SizedBox(width: screenSize.width *0.1-12,)
+
+                          ],
+                        ),
                       )
                     ],
                   ),
                 ),
+                Padding(
+                  padding: const EdgeInsets.symmetric(vertical: 14.0),
+                  child: Container(
+                    margin: EdgeInsets.symmetric(horizontal: 0,vertical: 0),
+                    decoration: BoxDecoration(
+                      color: Colors.grey[300],
+                      borderRadius: BorderRadius.circular(3)
+                    ),
+                    child: Padding(
+                      padding: EdgeInsets.symmetric(vertical: 12),
+                      child: Container(
+                        color: Colors.white,
+                        child: Column(
+                          children: [
+                            Padding(
+                              padding: const EdgeInsets.symmetric(vertical: 18.0,horizontal: 12),
+                              child: Row(
+                                children:  [
+                                  SvgPicture.asset(
+                                      'assets/images/svg/9593997931634472866.svg',
+                                     // color: Colors.black,
+                                      height: 21.00,
+                                      width: 21.0,
+                                      semanticsLabel: 'A red up arrow'
+                                  ),
+                                  SizedBox(width: 5.0,),
+                                  const Text('Seller',style: TextStyle(
+                                    fontWeight: FontWeight.w600,
+                                    fontSize: 15
+                                  ),),
+                                  SizedBox(width: 8.0,),
+
+                                   Text('QR Market',style: TextStyle(
+                                      fontWeight: FontWeight.w600,
+                                      fontSize: 16,
+                                    color: myHexColor3
+                                  ),),
+                                  Spacer(),
+                                  Icon(Icons.keyboard_arrow_right)
+                                ],
+                              ),
+                            )
+                          ],
+                        ),
+                      ),
+                    ),
+
+                  ),
+                ),
+                Row(
+                  crossAxisAlignment: CrossAxisAlignment.center,
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
                   InkWell(
                     onTap: (){
                       setState(() {
-                        _color2 = myHexColor3;
-                        _color = Colors.grey[700];
-                        showOver =false;
-                        showSpec =true;
+                        _color = myHexColor3;
+                        _color2 = Colors.grey[700];
+                        showOver =true;
+                        showSpec =false;
+
                       });
                     },
                     child: Column(
                       crossAxisAlignment: CrossAxisAlignment.center,
                       mainAxisAlignment: MainAxisAlignment.center,
                       children: [
-                        AnimatedContainer(
-                            curve: Curves.easeIn,
-                            duration: 14.seconds,
-
-                        child: Text('Specifications',style: TextStyle(color: _color2,fontWeight: FontWeight.w500),)),
+                        AnimatedContainer(duration: 11.seconds,
+                        curve: Curves.easeIn,
+                        child: Text('Overview',style: TextStyle(color: _color,fontWeight: FontWeight.w500))),
                         SizedBox(height: 10.0,),
                         AnimatedContainer(
                           curve: Curves.easeInOut,
-                          width: screenSize.width/2,
-                          height: 2.5,
-                          color: _color2,
+                              width:screenSize.width/2,
+                              height: 2.5,
+                              color: _color,
                           duration: 900.milliseconds ,
 
                         )
                       ],
                     ),
-                  )
-                ],
-              ),
-             showSpec ?Column(
-               crossAxisAlignment: CrossAxisAlignment.start,
-               children: [
-                 Padding(
-                   padding: const EdgeInsets.symmetric(vertical: 14.0,horizontal: 12),
-                   child: Text('Specifications',style: TextStyle(color: Colors.black,fontSize: 12,fontWeight: FontWeight.w800),),
-                 ),
-                 Padding(
-                   padding: const EdgeInsets.symmetric(vertical: 12.0,horizontal: 12),
-                   child: Row(
-                     crossAxisAlignment: CrossAxisAlignment.start,
-                     children: [
-                       SizedBox(
-                           child: Text('Specifications',style: TextStyle(color: Colors.grey[900],fontSize: 11 ,fontWeight: FontWeight.w600),),width: screenSize.width*.5-30),
-                       SizedBox(
-                           width: 210,
-                           child: Text('Specifications Specifications Specifications Specifications Specifications',maxLines: 3,style: TextStyle(fontWeight: FontWeight.w500,color: Colors.grey[800],fontSize: 11, ),)),
-                       Spacer()
-                     ],
-                   ),
-                 ),
-                 Container(
-                   color: myHexColor3.withOpacity(0.4),
-                   child: Padding(
-                     padding: const EdgeInsets.symmetric(vertical: 12.0,horizontal: 12),
-                     child: Row(
-                       crossAxisAlignment: CrossAxisAlignment.start,
-                       children: [
-                         SizedBox(child: Text('Color name',style: TextStyle(color: Colors.grey[900],fontSize: 11 ,fontWeight: FontWeight.w600),),width: screenSize.width*.5-30),
-                         SizedBox(
-                             width: 210,
-                             child: Text('Red ',maxLines: 3,style: TextStyle(color: Colors.grey[800],fontSize: 11,fontWeight: FontWeight.w500 ),)),
-                         Spacer()
-                       ],
-                     ),
-                   ),
-                 ),
-                 Padding(
-                   padding: const EdgeInsets.symmetric(vertical: 12.0,horizontal: 12),
-                   child: Row(
-                     crossAxisAlignment: CrossAxisAlignment.start,
-                     children: [
-                       SizedBox(
-                           width: screenSize.width*.5-30,
-                           child: Text('Department',style: TextStyle(color: Colors.grey[900],fontSize: 11 ,fontWeight: FontWeight.w600),)),
-                       Text('Specifications',maxLines: 3,style: TextStyle(fontWeight: FontWeight.w500,color: Colors.grey[800],fontSize: 11, ),),
-                       Spacer()
-                     ],
-                   ),
-                 ),
-                 Container(
-                   color: myHexColor3.withOpacity(0.4),
-                   child: Padding(
-                     padding: const EdgeInsets.symmetric(vertical: 12.0,horizontal: 12),
-                     child: Row(
-                       crossAxisAlignment: CrossAxisAlignment.start,
-                       children: [
-                         SizedBox(
-                             width: screenSize.width*.5-30,
-                             child: Text('Fit',style: TextStyle(color: Colors.grey[900],fontSize: 11 ,fontWeight: FontWeight.w600),)),
-                         Text('Relaxed ',maxLines: 3,style: TextStyle(color: Colors.grey[800],fontSize: 11,fontWeight: FontWeight.w500 ),),
-                         Spacer()
-                       ],
-                     ),
-                   ),
-                 ),
-                 Padding(
-                   padding: const EdgeInsets.symmetric(vertical: 12.0,horizontal: 12),
-                   child: Row(
-                     crossAxisAlignment: CrossAxisAlignment.start,
-                     children: [
-                       SizedBox(
-                           width: screenSize.width*.5-30,
-                           child: Text('Material',style: TextStyle(color: Colors.grey[900],fontSize: 11 ,fontWeight: FontWeight.w600),)),
-                       Text('Cotton',maxLines: 3,style: TextStyle(fontWeight: FontWeight.w500,color: Colors.grey[800],fontSize: 11, ),),
-                       Spacer()
-                     ],
-                   ),
-                 ),
-                 Container(
-                   color: myHexColor3.withOpacity(0.4),
-                   child: Padding(
-                     padding: const EdgeInsets.symmetric(vertical: 12.0,horizontal: 12),
-                     child: Row(
-                       crossAxisAlignment: CrossAxisAlignment.start,
-                       children: [
-                         SizedBox(
-                             width: screenSize.width*.5-30,
-                             child: Text('Material Composition',style: TextStyle(color: Colors.grey[900],fontSize: 11 ,fontWeight: FontWeight.w600),)),
-                         Text('100% Organic Cotton ',overflow: TextOverflow.ellipsis,maxLines: 3,style: TextStyle(color: Colors.grey[800],fontSize: 11,fontWeight: FontWeight.w500 ),),
-                         Spacer()
-                       ],
-                     ),
-                   ),
-                 ),
-                 Padding(
-                   padding: const EdgeInsets.symmetric(vertical: 12.0,horizontal: 12),
-                   child: Row(
-                     crossAxisAlignment: CrossAxisAlignment.start,
-                     children: [
-                       SizedBox(
-                           width: screenSize.width*.5-30,
-                           child: Text('Department',style: TextStyle(color: Colors.grey[900],fontSize: 11 ,fontWeight: FontWeight.w600),)),
-                       Text('Specifications',maxLines: 3,style: TextStyle(fontWeight: FontWeight.w500,color: Colors.grey[800],fontSize: 11, ),),
-                       Spacer()
-                     ],
-                   ),
-                 ),
-                 Container(
-                   color: myHexColor3.withOpacity(0.4),
-                   child: Padding(
-                     padding: const EdgeInsets.symmetric(vertical: 12.0,horizontal: 12),
-                     child: Row(
-                       crossAxisAlignment: CrossAxisAlignment.start,
-                       children: [
-                         SizedBox(
-                             width: screenSize.width*.5-30,
-                             child: Text('Color name',style: TextStyle(color: Colors.grey[900],fontSize: 11 ,fontWeight: FontWeight.w600),)),
-                         Text('Red ',maxLines: 3,style: TextStyle(color: Colors.grey[800],fontSize: 11,fontWeight: FontWeight.w500 ),),
-                         Spacer()
-                       ],
-                     ),
-                   ),
-                 ),
-                 Padding(
-                   padding: const EdgeInsets.symmetric(vertical: 12.0,horizontal: 12),
-                   child: Row(
-                     crossAxisAlignment: CrossAxisAlignment.start,
-                     children: [
-                       SizedBox(
-                           width: screenSize.width*.5-30,
-                           child: Text('Model Number',style: TextStyle(color: Colors.grey[900],fontSize: 11 ,fontWeight: FontWeight.w600),)),
-                       Text('M33333',maxLines: 3,style: TextStyle(fontWeight: FontWeight.w500,color: Colors.grey[800],fontSize: 11, ),),
-                       Spacer()
-                     ],
-                   ),
-                 ),
-                 Container(
-                   color: myHexColor3.withOpacity(0.4),
-                   child: Padding(
-                     padding: const EdgeInsets.symmetric(vertical: 12.0,horizontal: 12),
-                     child: Row(
-                       crossAxisAlignment: CrossAxisAlignment.start,
-                       children: [
-                         SizedBox(
-                             width: screenSize.width*.5-30,
-                             child: Text('Season Code',style: TextStyle(color: Colors.grey[900],fontSize: 11 ,fontWeight: FontWeight.w600),)),
-                         Text('SS',maxLines: 3,style: TextStyle(color: Colors.grey[800],fontSize: 11,fontWeight: FontWeight.w500 ),),
-                         Spacer()
-                       ],
-                     ),
-                   ),
-                 ),
+                  ),
+                    InkWell(
+                      onTap: (){
+                        setState(() {
+                          _color2 = myHexColor3;
+                          _color = Colors.grey[700];
+                          showOver =false;
+                          showSpec =true;
+                        });
+                      },
+                      child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.center,
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: [
+                          AnimatedContainer(
+                              curve: Curves.easeIn,
+                              duration: 14.seconds,
 
-               ],
-             ):Container(
-               child: Column(
+                          child: Text('Specifications',style: TextStyle(color: _color2,fontWeight: FontWeight.w500),)),
+                          SizedBox(height: 10.0,),
+                          AnimatedContainer(
+                            curve: Curves.easeInOut,
+                            width: screenSize.width/2,
+                            height: 2.5,
+                            color: _color2,
+                            duration: 900.milliseconds ,
+
+                          )
+                        ],
+                      ),
+                    )
+                  ],
+                ),
+               showSpec ?Column(
                  crossAxisAlignment: CrossAxisAlignment.start,
                  children: [
                    Padding(
-                     padding: const EdgeInsets.only(right: 12.0,left: 12.0,top: 22.0,bottom: 10),
-                     child: Text('Highlights',style: TextStyle(color: Colors.black,fontSize: 12,fontWeight: FontWeight.w800),),
+                     padding: const EdgeInsets.symmetric(vertical: 14.0,horizontal: 12),
+                     child: Text('Specifications',style: TextStyle(color: Colors.black,fontSize: 12,fontWeight: FontWeight.w800),),
                    ),
                    Padding(
-                     padding: const EdgeInsets.symmetric(vertical: 1.0,horizontal: 12),
-                     child: Text('Highlights..........eee eeedsdsde fefe eeded edfed efdede efef eefde ee 6h6yh rrg tgtt trgf rf  rrrtrf rtrf.',maxLines: 6,style: TextStyle(color: Colors.black,fontSize: 12,fontWeight: FontWeight.w300),),
+                     padding: const EdgeInsets.symmetric(vertical: 12.0,horizontal: 12),
+                     child: Row(
+                       crossAxisAlignment: CrossAxisAlignment.start,
+                       children: [
+                         SizedBox(
+                             child: Text('Specifications',style: TextStyle(color: Colors.grey[900],fontSize: 11 ,fontWeight: FontWeight.w600),),width: screenSize.width*.5-30),
+                         SizedBox(
+                             width: 210,
+                             child: Text('Specifications Specifications Specifications Specifications Specifications',maxLines: 3,style: TextStyle(fontWeight: FontWeight.w500,color: Colors.grey[800],fontSize: 11, ),)),
+                         Spacer()
+                       ],
+                     ),
                    ),
-                   SizedBox(height: 50,)
+                   Container(
+                     color: myHexColor3.withOpacity(0.4),
+                     child: Padding(
+                       padding: const EdgeInsets.symmetric(vertical: 12.0,horizontal: 12),
+                       child: Row(
+                         crossAxisAlignment: CrossAxisAlignment.start,
+                         children: [
+                           SizedBox(child: Text('Color name',style: TextStyle(color: Colors.grey[900],fontSize: 11 ,fontWeight: FontWeight.w600),),width: screenSize.width*.5-30),
+                           SizedBox(
+                               width: 210,
+                               child: Text('Red ',maxLines: 3,style: TextStyle(color: Colors.grey[800],fontSize: 11,fontWeight: FontWeight.w500 ),)),
+                           Spacer()
+                         ],
+                       ),
+                     ),
+                   ),
+                   Padding(
+                     padding: const EdgeInsets.symmetric(vertical: 12.0,horizontal: 12),
+                     child: Row(
+                       crossAxisAlignment: CrossAxisAlignment.start,
+                       children: [
+                         SizedBox(
+                             width: screenSize.width*.5-30,
+                             child: Text('Department',style: TextStyle(color: Colors.grey[900],fontSize: 11 ,fontWeight: FontWeight.w600),)),
+                         Text('Specifications',maxLines: 3,style: TextStyle(fontWeight: FontWeight.w500,color: Colors.grey[800],fontSize: 11, ),),
+                         Spacer()
+                       ],
+                     ),
+                   ),
+                   Container(
+                     color: myHexColor3.withOpacity(0.4),
+                     child: Padding(
+                       padding: const EdgeInsets.symmetric(vertical: 12.0,horizontal: 12),
+                       child: Row(
+                         crossAxisAlignment: CrossAxisAlignment.start,
+                         children: [
+                           SizedBox(
+                               width: screenSize.width*.5-30,
+                               child: Text('Fit',style: TextStyle(color: Colors.grey[900],fontSize: 11 ,fontWeight: FontWeight.w600),)),
+                           Text('Relaxed ',maxLines: 3,style: TextStyle(color: Colors.grey[800],fontSize: 11,fontWeight: FontWeight.w500 ),),
+                           Spacer()
+                         ],
+                       ),
+                     ),
+                   ),
+                   Padding(
+                     padding: const EdgeInsets.symmetric(vertical: 12.0,horizontal: 12),
+                     child: Row(
+                       crossAxisAlignment: CrossAxisAlignment.start,
+                       children: [
+                         SizedBox(
+                             width: screenSize.width*.5-30,
+                             child: Text('Material',style: TextStyle(color: Colors.grey[900],fontSize: 11 ,fontWeight: FontWeight.w600),)),
+                         Text('Cotton',maxLines: 3,style: TextStyle(fontWeight: FontWeight.w500,color: Colors.grey[800],fontSize: 11, ),),
+                         Spacer()
+                       ],
+                     ),
+                   ),
+                   Container(
+                     color: myHexColor3.withOpacity(0.4),
+                     child: Padding(
+                       padding: const EdgeInsets.symmetric(vertical: 12.0,horizontal: 12),
+                       child: Row(
+                         crossAxisAlignment: CrossAxisAlignment.start,
+                         children: [
+                           SizedBox(
+                               width: screenSize.width*.5-30,
+                               child: Text('Material Composition',style: TextStyle(color: Colors.grey[900],fontSize: 11 ,fontWeight: FontWeight.w600),)),
+                           Text('100% Organic Cotton ',overflow: TextOverflow.ellipsis,maxLines: 3,style: TextStyle(color: Colors.grey[800],fontSize: 11,fontWeight: FontWeight.w500 ),),
+                           Spacer()
+                         ],
+                       ),
+                     ),
+                   ),
+                   Padding(
+                     padding: const EdgeInsets.symmetric(vertical: 12.0,horizontal: 12),
+                     child: Row(
+                       crossAxisAlignment: CrossAxisAlignment.start,
+                       children: [
+                         SizedBox(
+                             width: screenSize.width*.5-30,
+                             child: Text('Department',style: TextStyle(color: Colors.grey[900],fontSize: 11 ,fontWeight: FontWeight.w600),)),
+                         Text('Specifications',maxLines: 3,style: TextStyle(fontWeight: FontWeight.w500,color: Colors.grey[800],fontSize: 11, ),),
+                         Spacer()
+                       ],
+                     ),
+                   ),
+                   Container(
+                     color: myHexColor3.withOpacity(0.4),
+                     child: Padding(
+                       padding: const EdgeInsets.symmetric(vertical: 12.0,horizontal: 12),
+                       child: Row(
+                         crossAxisAlignment: CrossAxisAlignment.start,
+                         children: [
+                           SizedBox(
+                               width: screenSize.width*.5-30,
+                               child: Text('Color name',style: TextStyle(color: Colors.grey[900],fontSize: 11 ,fontWeight: FontWeight.w600),)),
+                           Text('Red ',maxLines: 3,style: TextStyle(color: Colors.grey[800],fontSize: 11,fontWeight: FontWeight.w500 ),),
+                           Spacer()
+                         ],
+                       ),
+                     ),
+                   ),
+                   Padding(
+                     padding: const EdgeInsets.symmetric(vertical: 12.0,horizontal: 12),
+                     child: Row(
+                       crossAxisAlignment: CrossAxisAlignment.start,
+                       children: [
+                         SizedBox(
+                             width: screenSize.width*.5-30,
+                             child: Text('Model Number',style: TextStyle(color: Colors.grey[900],fontSize: 11 ,fontWeight: FontWeight.w600),)),
+                         Text('M33333',maxLines: 3,style: TextStyle(fontWeight: FontWeight.w500,color: Colors.grey[800],fontSize: 11, ),),
+                         Spacer()
+                       ],
+                     ),
+                   ),
+                   Container(
+                     color: myHexColor3.withOpacity(0.4),
+                     child: Padding(
+                       padding: const EdgeInsets.symmetric(vertical: 12.0,horizontal: 12),
+                       child: Row(
+                         crossAxisAlignment: CrossAxisAlignment.start,
+                         children: [
+                           SizedBox(
+                               width: screenSize.width*.5-30,
+                               child: Text('Season Code',style: TextStyle(color: Colors.grey[900],fontSize: 11 ,fontWeight: FontWeight.w600),)),
+                           Text('SS',maxLines: 3,style: TextStyle(color: Colors.grey[800],fontSize: 11,fontWeight: FontWeight.w500 ),),
+                           Spacer()
+                         ],
+                       ),
+                     ),
+                   ),
+
                  ],
+               ):Container(
+                 child: Column(
+                   crossAxisAlignment: CrossAxisAlignment.start,
+                   children: [
+                     Padding(
+                       padding: const EdgeInsets.only(right: 12.0,left: 12.0,top: 22.0,bottom: 10),
+                       child: Text('Highlights',style: TextStyle(color: Colors.black,fontSize: 12,fontWeight: FontWeight.w800),),
+                     ),
+                     Padding(
+                       padding: const EdgeInsets.symmetric(vertical: 1.0,horizontal: 12),
+                       child: Text('Highlights..........eee eeedsdsde fefe eeded edfed efdede efef eefde ee 6h6yh rrg tgtt trgf rf  rrrtrf rtrf.',maxLines: 6,style: TextStyle(color: Colors.black,fontSize: 12,fontWeight: FontWeight.w300),),
+                     ),
+                     SizedBox(height: 50,)
+                   ],
+                 ),
                ),
-             ),
 
-              SizedBox(height: 60,),
-              Padding(
-                padding: const EdgeInsets.only(right: 12.0,left: 12.0,top: 22.0,bottom: 10),
-                child: Text('More from ${widget.product!.brand}',style: TextStyle(color: Colors.black,fontSize: 12,fontWeight: FontWeight.w800),),
-              ),
-              buildHorizontalListOfProducts(true),
-              SizedBox(height: 60,),
+                SizedBox(height: 60,),
+                Padding(
+                  padding: const EdgeInsets.only(right: 12.0,left: 12.0,top: 22.0,bottom: 10),
+                  child: Text('More from ${widget.product!.brand}',style: TextStyle(color: Colors.black,fontSize: 12,fontWeight: FontWeight.w800),),
+                ),
+                buildHorizontalListOfProducts(true),
+                SizedBox(height: 60,),
 
-            ],
+              ],
+            ),
           ),
+          bottomSheet:  buildAddCartPrice(widget.product!.price!),
         ),
-        bottomSheet:  buildAddCartPrice(widget.product!.price!),
       ),
     );
   }

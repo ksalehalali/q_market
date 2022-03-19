@@ -9,6 +9,7 @@ import 'package:q_market/views/screens/home/home.dart';
 import '../../Assistants/assistantMethods.dart';
 import '../../Assistants/globals.dart';
 import '../../controllers/address_location_controller.dart';
+import 'categories/categories_screen.dart';
 
 class MainScreen extends StatefulWidget {
   const MainScreen({Key? key}) : super(key: key);
@@ -22,7 +23,8 @@ class _MainScreenState extends State<MainScreen> {
 
   final List<Widget> screens = [
     const HomeScreen(),
-    Register(),
+    const CategoriesScreen(),
+    const Register(),
   ];
 
   final PageStorageBucket bucket = PageStorageBucket();
