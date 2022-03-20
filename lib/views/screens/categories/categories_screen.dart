@@ -41,6 +41,18 @@ class _CategoriesScreenState extends State<CategoriesScreen> {
     {'catName': 'Brands','imagePath':'assets/images/zara-outlet.png'},
     {'catName': 'Watches & Bags','imagePath':'assets/images/aniket-narula-XjNI-C5G6mI-unsplash.jpg'},
   ];
+  List<Map<String,String>> handbags_wallets =[
+    {'catName': 'Women\'s Fashion','imagePath':'assets/images/agelesspix-PlcByunJ78c-unsplash.jpg'},
+    {'catName': 'Men\'s Fashion','imagePath':'assets/images/austin-wade-d2s8NQ6WD24-unsplash.jpg'},
+    {'catName': 'Kids, Baby & Toys','imagePath':'assets/images/robo-wunderkind-3EuPcI31MQU-unsplash.jpg'},
+    {'catName': 'Accessories and gifts','imagePath':'assets/images/freestocks-PxM8aeJbzvk-unsplash.jpg'},
+    {'catName': 'beauty supplies','imagePath':'assets/images/laura-chouette-RkINI2JZwss-unsplash.jpg'},
+    {'catName': 'Men\'s stuff','imagePath':'assets/images/aniket-narula-XjNI-C5G6mI-unsplash.jpg'},
+    {'catName': 'Mobiles & Accessories','imagePath':'assets/images/mehrshad-rajabi-cLrcbfSwBxU-unsplash.jpg'},
+    {'catName': 'Home & Kitchen','imagePath':'assets/images/ryan-christodoulou-68CDDj03rks-unsplash.jpg'},
+    {'catName': 'Brands','imagePath':'assets/images/zara-outlet.png'},
+    {'catName': 'Watches & Bags','imagePath':'assets/images/aniket-narula-XjNI-C5G6mI-unsplash.jpg'},
+  ];
   @override
   void initState() {
     // TODO: implement initState
@@ -127,63 +139,81 @@ class _CategoriesScreenState extends State<CategoriesScreen> {
                   child: ListView(
                     children: [
                 ...categoriesButtons,
-                      SizedBox(
-                        height: 10.0,
-                      ),
+                    ],
+                  ),
+                ),
+                SizedBox(
+                  height: screenSize.height-150,
+                  width: screenSize.width -101,
+                  child:  CustomScrollView(
+                    slivers:<Widget> [
+                      _buildTitle('Category'),
+                     _buildListOfpartments(categories),
+                      _buildTitle('Brands'),
+                      _buildListOfpartments(brands),
+                      _buildTitle('Handbags & Wallets'),
+                      _buildListOfpartments(brands),
 
                     ],
                   ),
                 ),
-
-                      Container(
-                        width: screenSize.width-100,
-                        height: screenSize.height-150,
-                        child: ListView(
-                          children: [
-                          ...brandsWidgets,
-                           Container(
-                             width: screenSize.width-100,
-                             height: screenSize.height-150,
-                             child: GridView.count(crossAxisCount: 3,
-                               padding: EdgeInsets.all(6),
-                               children: List.generate(10, (index) {
-                                 return Padding(
-                                     padding: EdgeInsets.zero,
-                                     child: Column(
-                                       children: <Widget>[
-                                         Container(
-                                           height: 59,
-                                           width: 59,
-                                           //padding:  EdgeInsets.all(0.1),
-                                           decoration:  BoxDecoration(
-                                             color: myHexColor,
-                                             borderRadius: BorderRadius.all(Radius.circular(6)),
-                                           ),
-                                           child: ClipRRect(
-                                             borderRadius: BorderRadius.all(Radius.circular(6)),
-                                             child: Image.asset(
-                                               categories[index]['imagePath'].toString(),
-                                               fit: BoxFit.fill,
-                                             ),
-                                           ),
-                                         ),
-                                         SizedBox(height: 5),
-                                         Text(categories[index]['catName'].toString(),style: TextStyle(fontSize: 12,fontWeight: FontWeight.bold),textAlign: TextAlign.center,)
-                                       ],
-                                     ));
-                               }),
-
-                             ),
-                           )
-                          ],
-                        ),
-                      )
+                Spacer(),
               ],
-            )
+            ),
+            Spacer(),
           ],
         ),
 
       ),),
     );
+  }
+  Widget _buildTitle(String title){
+    return  SliverAppBar(
+        floating: false,
+        expandedHeight: 22,
+        titleSpacing: 6.0,
+        foregroundColor: Colors.transparent.withOpacity(0.0),
+    backgroundColor: Colors.white.withOpacity(0.0),
+    title: Text(title,style: TextStyle(fontWeight: FontWeight.w600,fontSize: 18,color: Colors.black)));
+    // flexibleSpace: FlexibleSpaceBar(
+    //   title: Text('AAAAAAAA',style: TextStyle(fontWeight: FontWeight.w600,fontSize: 18,color: Colors.black),),
+    // ),
+  }
+  Widget _buildListOfpartments(categories){
+    return  SliverGrid(
+      delegate: SliverChildBuilderDelegate(
+              (context,index){
+            return Padding(
+                padding: EdgeInsets.zero,
+                child: Column(
+                  children: <Widget>[
+                    Container(
+                      height: 82,
+                      width: 88,
+                      //padding:  EdgeInsets.all(0.1),
+                      decoration:  BoxDecoration(
+                        color: myHexColor,
+                        borderRadius: BorderRadius.all(Radius.circular(6)),
+                      ),
+                      child: ClipRRect(
+                        borderRadius: BorderRadius.all(Radius.circular(6)),
+                        child: Image.asset(
+                          categories[index]['imagePath'].toString(),
+                          fit: BoxFit.fill,
+                        ),
+                      ),
+                    ),
+                    SizedBox(height: 5),
+                    Text(categories[index]['catName'].toString(),style: TextStyle(fontSize: 12,fontWeight: FontWeight.bold),textAlign: TextAlign.center,)
+                  ],
+                ));
+
+          },childCount: categories.length),
+      gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+          mainAxisSpacing: 1.0,
+          crossAxisSpacing: 1.0,
+          childAspectRatio: 0.8,
+          crossAxisCount: 3),);
+
   }
 }
