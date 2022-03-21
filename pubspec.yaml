@@ -50,6 +50,8 @@ dependencies:
   flutter_svg: ^1.0.3
   like_button: ^2.0.4
 
+  fluttertoast:
+  shared_preferences: ^2.0.13
 
 dev_dependencies:
   flutter_test:

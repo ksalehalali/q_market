@@ -6,11 +6,13 @@ import 'package:location/location.dart';
 import 'package:q_market/controllers/product_controller.dart';
 import 'package:q_market/models/product_model.dart';
 import 'package:q_market/views/screens/auth/register.dart';
+import 'package:q_market/Assistants/globals.dart';
 import 'package:q_market/views/screens/home/home.dart';
 import 'package:q_market/views/screens/main_screen.dart';
 import 'package:geolocator/geolocator.dart' as geo;
 import 'Assistants/assistantMethods.dart';
 import 'controllers/address_location_controller.dart';
+import 'controllers/start_up_controller.dart';
 
 void main() async{
   WidgetsFlutterBinding.ensureInitialized();
@@ -18,7 +20,12 @@ void main() async{
   final addressController =Get.putAsync(() async => AddressController(),permanent: true);
   final productController =Get.putAsync(() async => ProductsController(),permanent: true);
 
-  runApp(const MyApp());
+  runApp(
+      const GetMaterialApp(
+        home: MyApp(),
+        debugShowCheckedModeBanner: false,
+      )
+  );
 }
 
 class MyApp extends StatefulWidget {
@@ -30,13 +37,16 @@ class MyApp extends StatefulWidget {
 
 class _MyAppState extends State<MyApp> {
   final AddressController addressController = Get.find();
+  final startUpController = Get.put(StartUpController());
 
   @override
   void initState() {
     // TODO: implement initState
     super.initState();
     locatePosition();
+//    startUpController.fetchUserLoginPreference();
   }
+
 
 var geoLocator = geo.Geolocator();
 geo.Position? currentPos;
@@ -50,13 +60,19 @@ print(position);
 
   @override
   Widget build(BuildContext context) {
-    return GetMaterialApp(
-      title: 'Flutter Demo',
-      theme: ThemeData(
-        primarySwatch: Colors.blue,
-      ),
-      home: const MainScreen(),
-      debugShowCheckedModeBanner: false,
-    );
+    return Container(
+        padding: EdgeInsets.all(140),
+        margin: EdgeInsets.zero,
+        color: Colors.white,
+        child: FittedBox(
+          child: SizedBox(
+              height: 22,
+              width: 22,
+              child: CircularProgressIndicator.adaptive(
+                backgroundColor: myHexColor,
+                strokeWidth: 2,
+              )),
+        ),
+      );
   }
 }

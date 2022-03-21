@@ -4,6 +4,8 @@ import 'package:get/get.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:location/location.dart';
 import 'package:q_market/views/screens/auth/register.dart';
+import 'package:q_market/views/screens/home/Cart.dart';
+import 'package:q_market/views/screens/home/account.dart';
 import 'package:q_market/views/screens/home/home.dart';
 
 import '../../Assistants/assistantMethods.dart';
@@ -12,7 +14,7 @@ import '../../controllers/address_location_controller.dart';
 import 'categories/categories_screen.dart';
 
 class MainScreen extends StatefulWidget {
-  const MainScreen({Key? key}) : super(key: key);
+  MainScreen({Key? key}) : super(key: key);
 
   @override
   _MainScreenState createState() => _MainScreenState();
@@ -25,6 +27,8 @@ class _MainScreenState extends State<MainScreen> {
     const HomeScreen(),
     const CategoriesScreen(),
     const Register(),
+    const Cart(),
+    Account(),
   ];
 
   final PageStorageBucket bucket = PageStorageBucket();
