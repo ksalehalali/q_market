@@ -13,8 +13,10 @@ class CategoriesScreen extends StatefulWidget {
 }
 
 class _CategoriesScreenState extends State<CategoriesScreen> {
-  List<Widget> categoriesButtons = [];
+  List categoriesButtons = [];
   List<Widget> brandsWidgets = [];
+  List colors =[];
+  Color color =Colors.grey;
 
   List<Map<String,String>> categories =[
      {'catName': 'Women\'s Fashion','imagePath':'assets/images/agelesspix-PlcByunJ78c-unsplash.jpg'},
@@ -43,7 +45,7 @@ class _CategoriesScreenState extends State<CategoriesScreen> {
   ];
   List<Map<String,String>> handbags_wallets =[
     {'catName': 'Women\'s Fashion','imagePath':'assets/images/agelesspix-PlcByunJ78c-unsplash.jpg'},
-    {'catName': 'Men\'s Fashion','imagePath':'assets/images/austin-wade-d2s8NQ6WD24-unsplash.jpg'},
+    {'catName': 'Men\'s Fashion','imagePath':'assets/images/austin-ade-d2s8NQ6WD24-unsplash.jpg'},
     {'catName': 'Kids, Baby & Toys','imagePath':'assets/images/robo-wunderkind-3EuPcI31MQU-unsplash.jpg'},
     {'catName': 'Accessories and gifts','imagePath':'assets/images/freestocks-PxM8aeJbzvk-unsplash.jpg'},
     {'catName': 'beauty supplies','imagePath':'assets/images/laura-chouette-RkINI2JZwss-unsplash.jpg'},
@@ -57,33 +59,55 @@ class _CategoriesScreenState extends State<CategoriesScreen> {
   void initState() {
     // TODO: implement initState
     super.initState();
-    createCategoriesButtons();
     createBrandsList();
   }
-  createCategoriesButtons(){
+  Widget buildCategoriesButtons(var data,int index){
     for(int i =0; i<categories.length;i++){
-      categoriesButtons.add(Container(
+      if(i==0){
+        colors.add(myHexColor3);
+      }else{
+        colors.add(Colors.black);
+      }}
+      return InkWell(
+        onTap: (){
+          print('object');
 
-        height: 80,
-        width: 82,
-        decoration: BoxDecoration(
-            image: DecorationImage(image: AssetImage(categories[i]['imagePath'].toString(),),fit: BoxFit.fill)
-        ),
+          setState(() {
+           for(int i =0; i<colors.length;i++){
+             if(index==i){
+               colors[index]= myHexColor3;
+             }else{
+               colors[i]=Colors.black;
+             }
+           }
+          });
+        },
         child: Container(
-            color: Colors.black.withOpacity(0.7),
-            child: Padding(
-              padding: const EdgeInsets.all(8.0),
-              child: Center(child: Text(categories[i]['catName'].toString(),maxLines: 2,textAlign: TextAlign.center,style: TextStyle(fontSize: 12,fontWeight: FontWeight.w500,color: Colors.white),)),
-            )),
-      ));
-    }
+
+          height: 76,
+          width: 79,
+          decoration: index !=0? BoxDecoration(
+              image: DecorationImage(image: AssetImage(data['imagePath'].toString(),),fit: BoxFit.fill)
+          ):null,
+          child: Container(
+              color: colors[index].withOpacity(0.8),
+              child: Padding(
+                padding: const EdgeInsets.all(8.0),
+                child: Center(child: Text(data['catName'].toString(),maxLines: 2,textAlign: TextAlign.center,style: TextStyle(fontSize: 12,fontWeight: FontWeight.w500,color: Colors.white),)),
+              )),
+        ),
+      );
+
   }
-  createBrandsList(){
+  final screenSize = Get.size;
+
+   createBrandsList(){
     for(int i =0; i<categories.length;i++){
       brandsWidgets.add(Padding(
           padding: EdgeInsets.zero,
           child: Column(
             children: <Widget>[
+              i==1 ? Container(width:screenSize.width ,height: 7,color: Colors.red[500],):Container(),
               Container(
                 height: 59,
                 width: 59,
@@ -112,10 +136,10 @@ class _CategoriesScreenState extends State<CategoriesScreen> {
     super.dispose();
   }
 
+  Key? key;
   @override
   Widget build(BuildContext context) {
 
-    final screenSize = Get.size;
     return Container(
       color: myHexColor5,
       child: SafeArea(child: Scaffold(
@@ -137,23 +161,42 @@ class _CategoriesScreenState extends State<CategoriesScreen> {
                   width: 100,
                   height: screenSize.height-150,
                   child: ListView(
-                    children: [
-                ...categoriesButtons,
+
+                    children: <Widget>[
+                     buildCategoriesButtons(categories[0], 0),
+                      buildCategoriesButtons(categories[1], 1),
+                      buildCategoriesButtons(categories[2], 2),
+                      buildCategoriesButtons(categories[3], 3),
+                      buildCategoriesButtons(categories[4], 4),
+                      buildCategoriesButtons(categories[5], 5),
+                      buildCategoriesButtons(categories[6], 6),
+                      buildCategoriesButtons(categories[7], 7),
+                      buildCategoriesButtons(categories[8], 8),
+                      buildCategoriesButtons(categories[9], 9),
+
+
+
                     ],
                   ),
                 ),
                 SizedBox(
                   height: screenSize.height-150,
                   width: screenSize.width -101,
-                  child:  CustomScrollView(
-                    slivers:<Widget> [
-                      _buildTitle('Category'),
-                     _buildListOfpartments(categories),
-                      _buildTitle('Brands'),
-                      _buildListOfpartments(brands),
-                      _buildTitle('Handbags & Wallets'),
-                      _buildListOfpartments(brands),
+                  child:  Stack(
+                    children: [
+                      Container(width:screenSize.width ,height: 0.5,color: Colors.grey[500],),
 
+                      CustomScrollView(
+                        slivers:<Widget> [
+                          _buildTitle('Category'),
+                         _buildListOfpartments(categories),
+                          _buildTitle('Brands'),
+                          _buildListOfpartments(brands),
+                          _buildTitle('Handbags & Wallets'),
+                          _buildListOfpartments(brands),
+
+                        ],
+                      ),
                     ],
                   ),
                 ),
