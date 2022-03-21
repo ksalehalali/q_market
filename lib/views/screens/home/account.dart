@@ -2,9 +2,17 @@
 // ignore_for_file: prefer_const_literals_to_create_immutables, prefer_const_constructors
 
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
+import 'package:get/get_core/src/get_main.dart';
+
+import '../../../controllers/account_controller.dart';
+import '../../../controllers/register_controller.dart';
 
 class Account extends StatelessWidget {
-  const Account({Key? key}) : super(key: key);
+  Account({Key? key}) : super(key: key);
+
+  final registerController = Get.put(RegisterController());
+  final accountController = Get.put(AccountController());
 
   @override
   Widget build(BuildContext context) {
@@ -144,31 +152,35 @@ class Account extends StatelessWidget {
     );
   }
 
-  Container buildOptionRow(String optionText, IconData optionIcon) {
-    return Container(
-      height: 75,
-      padding: EdgeInsets.symmetric(horizontal: 16.0),
-      child: Row(
-        crossAxisAlignment: CrossAxisAlignment.center,
-        children: [
-          Icon(
-            optionIcon,
-            size: 30,
-            color: Colors.black54,
-          ),
-          SizedBox(width: 16,),
-          Text(
-            optionText,
-            style: TextStyle(
-              fontSize: 20,
+  GestureDetector buildOptionRow(String optionText, IconData optionIcon) {
+    return GestureDetector(
+      onTap: (){},
+      child: Container(
+        height: 75,
+        padding: EdgeInsets.symmetric(horizontal: 16.0),
+        child: Row(
+          crossAxisAlignment: CrossAxisAlignment.center,
+          children: [
+            Icon(
+              optionIcon,
+              size: 30,
               color: Colors.black54,
-              fontWeight: FontWeight.bold
             ),
-          ),
-          Spacer(),
-          Icon(Icons.arrow_forward_ios_rounded, size: 16, color: Colors.black54,),
-        ],
+            SizedBox(width: 16,),
+            Text(
+              optionText,
+              style: TextStyle(
+                fontSize: 20,
+                color: Colors.black54,
+                fontWeight: FontWeight.bold
+              ),
+            ),
+            Spacer(),
+            Icon(Icons.arrow_forward_ios_rounded, size: 16, color: Colors.black54,),
+          ],
+        ),
       ),
     );
   }
+
 }

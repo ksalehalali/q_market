@@ -183,7 +183,6 @@ class _RegisterState extends State<Register> {
         ),
       ),),
 
-
 //       TOGGLE LOGIN
     Obx(() =>  AnimatedOpacity(
         opacity: !showSignUp.value ? 1.0 : 0.0,
@@ -279,178 +278,179 @@ class _RegisterState extends State<Register> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: SafeArea(
-        child: Container(
-          padding: const EdgeInsets.symmetric(horizontal: 16.0),
-          width: Get.size.width,
-          height: Get.size.height,
-          child: SingleChildScrollView(
-            child: Column(
-              children: [
-                const SizedBox(height: 16,),
-                // CLOSE
-                Container(
-                  alignment: Alignment.centerRight,
-                  child: IconButton(
-                    icon: const Icon(Icons.close),
-                    onPressed: () {
-                      Get.back();
-                    },
+        body: SafeArea(
+          child: Container(
+            padding: const EdgeInsets.symmetric(horizontal: 16.0),
+            width: Get.size.width,
+            height: Get.size.height,
+            child: SingleChildScrollView(
+              child: Column(
+                children: [
+                  const SizedBox(height: 16,),
+                  // CLOSE
+                  Container(
+                    alignment: Alignment.centerRight,
+                    child: IconButton(
+                      icon: const Icon(Icons.close),
+                      onPressed: () {
+                        Get.back();
+                      },
+                    ),
                   ),
-                ),
-                // LOGIN / SIGN UP SWITCH
-                Container(
-                  width: Get.size.width,
-                  height: stackHeight,
-                  child: Stack(
-                    children: [
-                      stackItems[0],
-                      stackItems[1],
-                      AnimatedPositioned(
-                        duration: const Duration(milliseconds: 500),
-                        top: moveWidgets ? 450 : 300,
-                        child: Column(
-                          children: [
-                            // LOGIN / SIGN UP BUTTON
-                            Container(
-                              height: 60,
-                              width: Get.size.width,
-                              child: ElevatedButton(
-                                style: ButtonStyle(
-                                  backgroundColor: MaterialStateProperty.all(myHexColor2),
-                                ),
-                                onPressed: () async{
-                                  if(!instantlyTransitionedWidgets){
-                                    await registerController.makeLoginRequest();
-                                  }
-                                },
-                                child: Text(
-                                  !instantlyTransitionedWidgets ? "Login": "Create A New Account",
-                                  style: const TextStyle(
-                                    fontSize: 18,
+                  // LOGIN / SIGN UP SWITCH
+                  Container(
+                    width: Get.size.width,
+                    height: stackHeight,
+                    child: Stack(
+                      children: [
+                        stackItems[0],
+                        stackItems[1],
+                        AnimatedPositioned(
+                          duration: const Duration(milliseconds: 500),
+                          top: moveWidgets ? 450 : 300,
+                          child: Column(
+                            children: [
+                              // LOGIN / SIGN UP BUTTON
+                              Container(
+                                height: 60,
+                                width: Get.size.width,
+                                child: ElevatedButton(
+                                  style: ButtonStyle(
+                                    backgroundColor: MaterialStateProperty.all(myHexColor2),
+                                  ),
+                                  onPressed: () async{
+                                    if(!instantlyTransitionedWidgets){
+                                      print("ssss");
+                                      await registerController.makeLoginRequest();
+                                    }
+                                  },
+                                  child: Text(
+                                    !instantlyTransitionedWidgets ? "Login": "Create A New Account",
+                                    style: const TextStyle(
+                                      fontSize: 18,
+                                    ),
                                   ),
                                 ),
                               ),
-                            ),
-                            const SizedBox(height: 32,),
-                            // LOGIN OPTION TEXT
-                            const Text(
-                              "Or login via social media account",
-                              style: TextStyle(
-                                  fontSize: 15,
-                                  fontWeight: FontWeight.bold
+                              const SizedBox(height: 32,),
+                              // LOGIN OPTION TEXT
+                              const Text(
+                                "Or login via social media account",
+                                style: TextStyle(
+                                    fontSize: 15,
+                                    fontWeight: FontWeight.bold
+                                ),
                               ),
-                            ),
-                            const SizedBox(height: 32,),
-                            // SOCIAL MEDIA OPTIONS
-                            Row(
-                              mainAxisAlignment: MainAxisAlignment.center,
-                              children: [
-                                // FACEBOOK
-                                Container(
-                                  padding: const EdgeInsets.all(16),
-                                  decoration: BoxDecoration(
-                                    border: Border.all(
-                                      color: Colors.black12,
+                              const SizedBox(height: 32,),
+                              // SOCIAL MEDIA OPTIONS
+                              Row(
+                                mainAxisAlignment: MainAxisAlignment.center,
+                                children: [
+                                  // FACEBOOK
+                                  Container(
+                                    padding: const EdgeInsets.all(16),
+                                    decoration: BoxDecoration(
+                                      border: Border.all(
+                                        color: Colors.black12,
+                                      ),
+                                      borderRadius: const BorderRadius.all(
+                                        Radius.circular(30),
+                                      ),
                                     ),
-                                    borderRadius: const BorderRadius.all(
-                                      Radius.circular(30),
+                                    child: SvgPicture.asset("${assetsDir}facebook.svg", width: 25,),
+                                  ),
+                                  const SizedBox(width: 32,),
+                                  // GOOGLE
+                                  Container(
+                                    padding: const EdgeInsets.all(16),
+                                    decoration: BoxDecoration(
+                                      border: Border.all(
+                                        color: Colors.black12,
+                                      ),
+                                      borderRadius: const BorderRadius.all(
+                                        Radius.circular(30),
+                                      ),
+                                    ),
+                                    child: SvgPicture.asset("${assetsDir}google.svg", width: 25,),
+                                  ),
+                                ],
+                              ),
+                              const SizedBox(height: 16,),
+                              // NEW USER / ALREADY HAVE AN ACCOUNT
+                              Row(
+                                mainAxisAlignment: MainAxisAlignment.center,
+                                children: [
+                                  const Text(
+                                    "New User?  ",
+                                    style: TextStyle(
+
                                     ),
                                   ),
-                                  child: SvgPicture.asset("${assetsDir}facebook.svg", width: 25,),
-                                ),
-                                const SizedBox(width: 32,),
-                                // GOOGLE
-                                Container(
-                                  padding: const EdgeInsets.all(16),
-                                  decoration: BoxDecoration(
-                                    border: Border.all(
-                                      color: Colors.black12,
-                                    ),
-                                    borderRadius: const BorderRadius.all(
-                                      Radius.circular(30),
-                                    ),
-                                  ),
-                                  child: SvgPicture.asset("${assetsDir}google.svg", width: 25,),
-                                ),
-                              ],
-                            ),
-                            const SizedBox(height: 16,),
-                            // NEW USER / ALREADY HAVE AN ACCOUNT
-                            Row(
-                              mainAxisAlignment: MainAxisAlignment.center,
-                              children: [
-                                const Text(
-                                  "New User?  ",
-                                  style: TextStyle(
+                                  GestureDetector(
+                                    onTap: () {
+                                      setState(() {
+                                        registerController.loginEmailController.text = "";
+                                        registerController.loginPasswordController.text = "";
+                                        registerController.signUpUsernameController.text = "";
+                                        registerController.signUpEmailController.text = "";
+                                        registerController.signUpPasswordController.text = "";
+                                        registerController.signUpConfirmPasswordController.text = "";
 
-                                  ),
-                                ),
-                                GestureDetector(
-                                  onTap: () {
-                                    setState(() {
-                                      registerController.loginEmailController.text = "";
-                                      registerController.loginPasswordController.text = "";
-                                      registerController.signUpUsernameController.text = "";
-                                      registerController.signUpEmailController.text = "";
-                                      registerController.signUpPasswordController.text = "";
-                                      registerController.signUpConfirmPasswordController.text = "";
+                                        Widget temp = stackItems[0];
+                                        stackItems[0] = stackItems[1];
+                                        stackItems[1] = temp;
 
-                                      Widget temp = stackItems[0];
-                                      stackItems[0] = stackItems[1];
-                                      stackItems[1] = temp;
-
-                                      instantlyTransitionedWidgets = !instantlyTransitionedWidgets;
-                                      if(!moveWidgets){
-                                        opacity = 1.0;
-                                        stackHeight = Get.size.height * 1.0;
-                                        moveWidgets = !moveWidgets;
-                                        Future.delayed(const Duration(milliseconds: 500), () {
-                                          setState(() {
-                                            showSignUp.value = !showSignUp.value;
-                                            print("moveWidgets: ${moveWidgets} showSignUp: ${showSignUp.value}");
+                                        instantlyTransitionedWidgets = !instantlyTransitionedWidgets;
+                                        if(!moveWidgets){
+                                          opacity = 1.0;
+                                          stackHeight = Get.size.height * 1.0;
+                                          moveWidgets = !moveWidgets;
+                                          Future.delayed(const Duration(milliseconds: 500), () {
+                                            setState(() {
+                                              showSignUp.value = !showSignUp.value;
+                                              print("moveWidgets: ${moveWidgets} showSignUp: ${showSignUp.value}");
+                                            });
                                           });
-                                        });
-                                      } else {
-                                        opacity = 1.0;
-                                        showSignUp.value = !showSignUp.value;
-                                        print("moveWidgets: ${moveWidgets} showSignUp: ${showSignUp.value}");
-                                        Future.delayed(const Duration(milliseconds: 500), () {
-                                          setState(() {
-                                            moveWidgets = !moveWidgets;
-                                            Future.delayed(const Duration(milliseconds: 500), () {
-                                              setState(() {
-                                                stackHeight = Get.size.height * 0.80;
+                                        } else {
+                                          opacity = 1.0;
+                                          showSignUp.value = !showSignUp.value;
+                                          print("moveWidgets: ${moveWidgets} showSignUp: ${showSignUp.value}");
+                                          Future.delayed(const Duration(milliseconds: 500), () {
+                                            setState(() {
+                                              moveWidgets = !moveWidgets;
+                                              Future.delayed(const Duration(milliseconds: 500), () {
+                                                setState(() {
+                                                  stackHeight = Get.size.height * 0.80;
+                                                });
                                               });
                                             });
                                           });
-                                        });
-                                      }
+                                        }
 
-                                    });
-                                  },
-                                  child: Text(
-                                    "Create a new account",
-                                    style: TextStyle(
-                                      color: myHexColor2,
+                                      });
+                                    },
+                                    child: Text(
+                                      "Create a new account",
+                                      style: TextStyle(
+                                        color: myHexColor2,
+                                      ),
                                     ),
                                   ),
-                                ),
-                              ],
-                            ),
-                            const SizedBox(height: 16,),
-                          ],
+                                ],
+                              ),
+                              const SizedBox(height: 16,),
+                            ],
+                          ),
                         ),
-                      ),
-                    ],
+                      ],
+                    ),
                   ),
-                ),
-                const SizedBox(height: 40,),
-              ],
+                  const SizedBox(height: 40,),
+                ],
+              ),
             ),
           ),
         ),
-      ),
-    );
+      );
   }
 }
