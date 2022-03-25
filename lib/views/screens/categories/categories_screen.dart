@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:q_market/Assistants/globals.dart';
 
+import '../../../Data/data_for_ui.dart';
 import '../../widgets/departments_list_r.dart';
 import '../home/search_area_des.dart';
 
@@ -17,19 +18,9 @@ class _CategoriesScreenState extends State<CategoriesScreen> {
   List<Widget> brandsWidgets = [];
   List colors =[];
   Color color =Colors.grey;
+  List<double> opacityColor = [];
 
-  List<Map<String,String>> categories =[
-     {'catName': 'Women\'s Fashion','imagePath':'assets/images/agelesspix-PlcByunJ78c-unsplash.jpg'},
-     {'catName': 'Men\'s Fashion','imagePath':'assets/images/austin-wade-d2s8NQ6WD24-unsplash.jpg'},
-     {'catName': 'Kids, Baby & Toys','imagePath':'assets/images/robo-wunderkind-3EuPcI31MQU-unsplash.jpg'},
-     {'catName': 'Accessories and gifts','imagePath':'assets/images/freestocks-PxM8aeJbzvk-unsplash.jpg'},
-     {'catName': 'beauty supplies','imagePath':'assets/images/laura-chouette-RkINI2JZwss-unsplash.jpg'},
-     {'catName': 'Men\'s stuff','imagePath':'assets/images/aniket-narula-XjNI-C5G6mI-unsplash.jpg'},
-     {'catName': 'Mobiles & Accessories','imagePath':'assets/images/mehrshad-rajabi-cLrcbfSwBxU-unsplash.jpg'},
-     {'catName': 'Home & Kitchen','imagePath':'assets/images/ryan-christodoulou-68CDDj03rks-unsplash.jpg'},
-     {'catName': 'Brands','imagePath':'assets/images/zara-outlet.png'},
-     {'catName': 'Watches & Bags','imagePath':'assets/images/aniket-narula-XjNI-C5G6mI-unsplash.jpg'},
-   ];
+
 
   List<Map<String,String>> brands =[
     {'catName': 'Women\'s Fashion','imagePath':'assets/images/agelesspix-PlcByunJ78c-unsplash.jpg'},
@@ -64,8 +55,11 @@ class _CategoriesScreenState extends State<CategoriesScreen> {
   Widget buildCategoriesButtons(var data,int index){
     for(int i =0; i<categories.length;i++){
       if(i==0){
-        colors.add(myHexColor3);
+        colors.add(myHexColor);
+        opacityColor.add(1.0);
+
       }else{
+        opacityColor.add(0.7);
         colors.add(Colors.black);
       }}
       return InkWell(
@@ -73,10 +67,13 @@ class _CategoriesScreenState extends State<CategoriesScreen> {
           print('object');
 
           setState(() {
-           for(int i =0; i<colors.length;i++){
+
+            for(int i =0; i<colors.length;i++){
              if(index==i){
-               colors[index]= myHexColor3;
+               colors[index]= myHexColor;
+               opacityColor[index]= 1.0;
              }else{
+               opacityColor[i]= 0.7;
                colors[i]=Colors.black;
              }
            }
@@ -86,11 +83,11 @@ class _CategoriesScreenState extends State<CategoriesScreen> {
 
           height: 76,
           width: 79,
-          decoration: index !=0? BoxDecoration(
+          decoration: BoxDecoration(
               image: DecorationImage(image: AssetImage(data['imagePath'].toString(),),fit: BoxFit.fill)
-          ):null,
+          ),
           child: Container(
-              color: colors[index].withOpacity(0.8),
+              color: colors[index].withOpacity(opacityColor[index]),
               child: Padding(
                 padding: const EdgeInsets.all(8.0),
                 child: Center(child: Text(data['catName'].toString(),maxLines: 2,textAlign: TextAlign.center,style: TextStyle(fontSize: 12,fontWeight: FontWeight.w500,color: Colors.white),)),
@@ -189,21 +186,21 @@ class _CategoriesScreenState extends State<CategoriesScreen> {
                       CustomScrollView(
                         slivers:<Widget> [
                           _buildTitle('Category'),
-                         _buildListOfpartments(categories),
+                         _buildListOfDepartments(categories),
                           _buildTitle('Brands'),
-                          _buildListOfpartments(brands),
+                          _buildListOfDepartments(brands),
                           _buildTitle('Handbags & Wallets'),
-                          _buildListOfpartments(brands),
+                          _buildListOfDepartments(brands),
 
                         ],
                       ),
                     ],
                   ),
                 ),
-                Spacer(),
+
               ],
             ),
-            Spacer(),
+
           ],
         ),
 
@@ -213,16 +210,23 @@ class _CategoriesScreenState extends State<CategoriesScreen> {
   Widget _buildTitle(String title){
     return  SliverAppBar(
         floating: false,
-        expandedHeight: 22,
+        expandedHeight: 1,
         titleSpacing: 6.0,
+        centerTitle: false,
         foregroundColor: Colors.transparent.withOpacity(0.0),
     backgroundColor: Colors.white.withOpacity(0.0),
-    title: Text(title,style: TextStyle(fontWeight: FontWeight.w600,fontSize: 18,color: Colors.black)));
+    title: Row(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      mainAxisAlignment: MainAxisAlignment.start,
+      children: [
+        Text(title,textAlign: TextAlign.start,style: TextStyle(fontWeight: FontWeight.w600,fontSize: 18,color: Colors.black)),
+      ],
+    ));
     // flexibleSpace: FlexibleSpaceBar(
     //   title: Text('AAAAAAAA',style: TextStyle(fontWeight: FontWeight.w600,fontSize: 18,color: Colors.black),),
     // ),
   }
-  Widget _buildListOfpartments(categories){
+  Widget _buildListOfDepartments(categories){
     return  SliverGrid(
       delegate: SliverChildBuilderDelegate(
               (context,index){

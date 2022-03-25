@@ -7,6 +7,7 @@ import 'package:q_market/controllers/address_location_controller.dart';
 import 'package:q_market/controllers/product_controller.dart';
 import 'package:q_market/views/screens/home/search_area_des.dart';
 import 'package:q_market/views/screens/show_product/product_item.dart';
+import '../../../Data/data_for_ui.dart';
 import '../../address/address_on_map.dart';
 import '../../address/search_address_screen.dart';
 import '../../widgets/departments_shpe.dart';
@@ -26,73 +27,73 @@ class _HomeScreenState extends State<HomeScreen> {
   final AddressController addressController = Get.find();
 
   ScrollController? scrollController;
-  List<Map> deps = [
-    {
-      'title': "Food",
-      "url":
-          'assets/images/villaggio-mall-shopping-center-in-doha-qatar-with--1433715784114_rs.jpeg'
-    },
-    {
-      'title': "Baby",
-      "url":
-          'assets/images/villaggio-mall-shopping-center-in-doha-qatar-with--1433715784114_rs.jpeg'
-    },
-    {
-      'title': "Mobiles",
-      "url":
-          'assets/images/villaggio-mall-shopping-center-in-doha-qatar-with--1433715784114_rs.jpeg'
-    },
-    {
-      'title': "Laptops",
-      "url":
-          'assets/images/villaggio-mall-shopping-center-in-doha-qatar-with--1433715784114_rs.jpeg'
-    },
-    {
-      'title': "Sports",
-      "url":
-          'assets/images/villaggio-mall-shopping-center-in-doha-qatar-with--1433715784114_rs.jpeg'
-    },
-    {
-      'title': "Televisions",
-      "url":
-          'assets/images/villaggio-mall-shopping-center-in-doha-qatar-with--1433715784114_rs.jpeg'
-    },
-    {
-      'title': "Watches",
-      "url":
-          'assets/images/villaggio-mall-shopping-center-in-doha-qatar-with--1433715784114_rs.jpeg'
-    },
-    {
-      'title': "Furniture",
-      "url":
-          'assets/images/villaggio-mall-shopping-center-in-doha-qatar-with--1433715784114_rs.jpeg'
-    },
-    {
-      'title': "Laptops",
-      "url":
-          'assets/images/villaggio-mall-shopping-center-in-doha-qatar-with--1433715784114_rs.jpeg'
-    },
-    {
-      'title': "Sports",
-      "url":
-          'assets/images/villaggio-mall-shopping-center-in-doha-qatar-with--1433715784114_rs.jpeg'
-    },
-    {
-      'title': "Televisions",
-      "url":
-          'assets/images/villaggio-mall-shopping-center-in-doha-qatar-with--1433715784114_rs.jpeg'
-    },
-    {
-      'title': "Watches",
-      "url":
-          'assets/images/villaggio-mall-shopping-center-in-doha-qatar-with--1433715784114_rs.jpeg'
-    },
-    {
-      'title': "Furniture",
-      "url":
-          'assets/images/villaggio-mall-shopping-center-in-doha-qatar-with--1433715784114_rs.jpeg'
-    },
-  ];
+  // List<Map> deps = [
+  //   {
+  //     'title': "Food",
+  //     "url":
+  //         'assets/images/villaggio-mall-shopping-center-in-doha-qatar-with--1433715784114_rs.jpeg'
+  //   },
+  //   {
+  //     'title': "Baby",
+  //     "url":
+  //         'assets/images/villaggio-mall-shopping-center-in-doha-qatar-with--1433715784114_rs.jpeg'
+  //   },
+  //   {
+  //     'title': "Mobiles",
+  //     "url":
+  //         'assets/images/villaggio-mall-shopping-center-in-doha-qatar-with--1433715784114_rs.jpeg'
+  //   },
+  //   {
+  //     'title': "Laptops",
+  //     "url":
+  //         'assets/images/villaggio-mall-shopping-center-in-doha-qatar-with--1433715784114_rs.jpeg'
+  //   },
+  //   {
+  //     'title': "Sports",
+  //     "url":
+  //         'assets/images/villaggio-mall-shopping-center-in-doha-qatar-with--1433715784114_rs.jpeg'
+  //   },
+  //   {
+  //     'title': "Televisions",
+  //     "url":
+  //         'assets/images/villaggio-mall-shopping-center-in-doha-qatar-with--1433715784114_rs.jpeg'
+  //   },
+  //   {
+  //     'title': "Watches",
+  //     "url":
+  //         'assets/images/villaggio-mall-shopping-center-in-doha-qatar-with--1433715784114_rs.jpeg'
+  //   },
+  //   {
+  //     'title': "Furniture",
+  //     "url":
+  //         'assets/images/villaggio-mall-shopping-center-in-doha-qatar-with--1433715784114_rs.jpeg'
+  //   },
+  //   {
+  //     'title': "Laptops",
+  //     "url":
+  //         'assets/images/villaggio-mall-shopping-center-in-doha-qatar-with--1433715784114_rs.jpeg'
+  //   },
+  //   {
+  //     'title': "Sports",
+  //     "url":
+  //         'assets/images/villaggio-mall-shopping-center-in-doha-qatar-with--1433715784114_rs.jpeg'
+  //   },
+  //   {
+  //     'title': "Televisions",
+  //     "url":
+  //         'assets/images/villaggio-mall-shopping-center-in-doha-qatar-with--1433715784114_rs.jpeg'
+  //   },
+  //   {
+  //     'title': "Watches",
+  //     "url":
+  //         'assets/images/villaggio-mall-shopping-center-in-doha-qatar-with--1433715784114_rs.jpeg'
+  //   },
+  //   {
+  //     'title': "Furniture",
+  //     "url":
+  //         'assets/images/villaggio-mall-shopping-center-in-doha-qatar-with--1433715784114_rs.jpeg'
+  //   },
+  // ];
   @override
   void initState() {
     // TODO: implement initState
@@ -188,11 +189,9 @@ class _HomeScreenState extends State<HomeScreen> {
                             Image.asset('assets/images/Ecommerce-in-Qatar.jpeg',
                                 fit: BoxFit.cover),
                             Image.asset(
-                                'assets/images/Qatar-Online-Marketing-Profile.jpeg',
+                                'assets/images/mohammad-metri-E-0ON3VGrBc-unsplash.jpg',
                                 fit: BoxFit.cover),
-                            Image.asset(
-                                'assets/images/villaggio-mall-shopping-center-in-doha-qatar-with--1433715784114_rs.jpeg',
-                                fit: BoxFit.cover),
+
                           ],
                         ),
                       ),
@@ -341,22 +340,22 @@ class _HomeScreenState extends State<HomeScreen> {
       child: Container(
         color: Colors.grey[50],
         child: GridView.builder(
-          itemCount: deps.length,
+          itemCount: categories.length,
           scrollDirection: Axis.horizontal,
           shrinkWrap: true,
           padding: EdgeInsets.zero,
           semanticChildCount: 0,
           gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
               crossAxisCount: 2,
-              mainAxisSpacing: 1,
-              crossAxisSpacing: 0.1,
-              childAspectRatio: 1.3),
+              mainAxisSpacing: 3,
+              crossAxisSpacing: 5.2,
+              childAspectRatio: 1.0),
           itemBuilder: (context, index) {
             return Padding(
                 padding: EdgeInsets.zero,
                 child: DepartmentShapeTile(
-                  assetPath: deps[index]['url'],
-                  title: deps[index]['title'],
+                  assetPath: categories[index]['imagePath'],
+                  title: categories[index]['catName'],
                 ));
           },
         ),
@@ -370,34 +369,22 @@ class _HomeScreenState extends State<HomeScreen> {
     final screenSize = Get.size;
     return SizedBox(
       height: screenSize.height * 0.4 - 28,
-      child: FutureBuilder(
-        future: productController.getLatestProducts(),
-          builder: (context, data) =>
-              data.connectionState == ConnectionState.waiting
-                  ? SizedBox(
-                      width: 110,
-                      height: 110,
-                      child: FittedBox(
-                        child: CircularProgressIndicator.adaptive(
-                          strokeWidth: 0.9,
-                        ),
-                      ),
-                    )
-                  : CustomScrollView(
+      child:  CustomScrollView(
                       scrollDirection: Axis.horizontal,
                       slivers: [
-                        SliverList(
-                          delegate: SliverChildBuilderDelegate(
-                            (context, index) {
-                              return ProductItemCard(
-                                  product: productController.latestProducts[index],fromDetails: false,);
-                            },
-                            childCount: 3,
-                            semanticIndexOffset: 2,
+                        Obx(()=> SliverList(
+                            delegate: SliverChildBuilderDelegate(
+                              (context, index) {
+                                return ProductItemCard(
+                                    product: productController.latestProducts[index],fromDetails: false,);
+                              },
+                              childCount: productController.latestProducts.length,
+                              semanticIndexOffset: 2,
+                            ),
                           ),
                         )
                       ],
-                    )),
+                    )
     );
   }
 

@@ -34,7 +34,6 @@ class _ProductDetailsState extends State<ProductDetails> with SingleTickerProvid
   void initState() {
     // TODO: implement initState
     super.initState();
-
   }
 
   @override
@@ -91,27 +90,18 @@ class _ProductDetailsState extends State<ProductDetails> with SingleTickerProvid
                     SizedBox(
                       height: 360.0,
                       width: double.infinity,
-                      child: Carousel(
-                        dotSize: 4.0,
-                        dotSpacing: 15.0,
-                        autoplay: false,
-                        autoplayDuration: 4.seconds,
-                        animationDuration: 500.milliseconds,
-                        dotBgColor: Colors.transparent.withOpacity(0.1),
-                        dotColor: Colors.white,
-                        dotIncreasedColor: Colors.red,
-                        dotPosition: DotPosition.bottomLeft,
-                        images: [
-                          Image.network(
-                              widget.product!.imageUrl!,
-                              fit: BoxFit.cover),
-                          Image.network(
-                              widget.product!.imageUrl!,
-                              fit: BoxFit.cover),
-                          Image.network(
-                              widget.product!.imageUrl!,
-                              fit: BoxFit.cover),
-                        ],
+                      child: Obx(()=> Carousel(
+                          dotSize: 4.0,
+                          dotSpacing: 15.0,
+                          autoplay: false,
+                          autoplayDuration: 4.seconds,
+                          animationDuration: 500.milliseconds,
+                          dotBgColor: Colors.transparent.withOpacity(0.1),
+                          dotColor: Colors.white,
+                          dotIncreasedColor: Colors.red,
+                          dotPosition: DotPosition.bottomLeft,
+                          images:productController.imagesList.value,
+                        ),
                       ),
                     ),
                     Positioned(
@@ -558,9 +548,9 @@ class _ProductDetailsState extends State<ProductDetails> with SingleTickerProvid
 
                     return InkWell(
                   onTap:() {
-                    currentSize = widget.product!.sizes![index];
+                    //currentSize = widget.product!.sizes![index];
                     setState(() {
-                      print('${widget.product!.sizes![index]}');
+                      print('sizes');
                       for (var i = 0; i<_colorSize.length; i++) {
                         if(i==index){
                           _colorSize[i] = myHexColor3;
@@ -581,12 +571,12 @@ class _ProductDetailsState extends State<ProductDetails> with SingleTickerProvid
                       decoration: BoxDecoration(
                           border: Border.all(width: 1.2,color:_colorSizeBorder[index])
                       ),
-                      child: Center(child: Text(widget.product!.sizes![index],style: TextStyle(color:_colorSize[index],fontWeight: FontWeight.bold,fontSize: 13),),),
+                      child: Center(child: Text('widget.product!.sizes![index]',style: TextStyle(color:_colorSize[index],fontWeight: FontWeight.bold,fontSize: 13),),),
                     ),
                   ),
                 );
               },
-              childCount:widget.product!.sizes!.length ,
+              childCount:2 ,
               semanticIndexOffset:0,
             ),
           )

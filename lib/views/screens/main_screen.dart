@@ -3,6 +3,7 @@ import 'package:flutter_svg/svg.dart';
 import 'package:get/get.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:location/location.dart';
+import 'package:q_market/controllers/product_controller.dart';
 import 'package:q_market/views/screens/auth/register.dart';
 import 'package:q_market/views/screens/home/Cart.dart';
 import 'package:q_market/views/screens/home/account.dart';
@@ -33,12 +34,14 @@ class _MainScreenState extends State<MainScreen> {
 
   final PageStorageBucket bucket = PageStorageBucket();
   Widget currentScreen = const HomeScreen();
+  final ProductsController productsController = Get.find();
 
   int? currentTp = 0;
 @override
   void initState() {
     // TODO: implement initState
     super.initState();
+    productsController.getLatestProducts();
   }
   @override
   Widget build(BuildContext context) {

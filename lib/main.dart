@@ -44,7 +44,7 @@ class _MyAppState extends State<MyApp> {
     // TODO: implement initState
     super.initState();
     locatePosition();
-//    startUpController.fetchUserLoginPreference();
+   startUpController.fetchUserLoginPreference();
   }
 
 
@@ -60,19 +60,20 @@ print(position);
 
   @override
   Widget build(BuildContext context) {
-    return Container(
-        padding: EdgeInsets.all(140),
-        margin: EdgeInsets.zero,
-        color: Colors.white,
-        child: FittedBox(
-          child: SizedBox(
-              height: 22,
-              width: 22,
-              child: CircularProgressIndicator.adaptive(
-                backgroundColor: myHexColor,
-                strokeWidth: 2,
-              )),
-        ),
-      );
+    return MainScreen();
+      // Container(
+      //   padding: EdgeInsets.all(140),
+      //   margin: EdgeInsets.zero,
+      //   color: Colors.white,
+      //   child: FittedBox(
+      //     child: SizedBox(
+      //         height: 22,
+      //         width: 22,
+      //         child: CircularProgressIndicator.adaptive(
+      //           backgroundColor: myHexColor,
+      //           strokeWidth: 2,
+      //         )),
+      //   ),
+      // );
   }
 }

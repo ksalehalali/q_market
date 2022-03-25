@@ -7,6 +7,8 @@ import 'package:q_market/Assistants/globals.dart';
 import 'package:q_market/models/product_model.dart';
 import 'package:q_market/views/screens/show_product/product_details.dart';
 
+import '../../../controllers/product_controller.dart';
+
 List likesList = [''];
 
 bool like = false;
@@ -15,23 +17,28 @@ class ProductItemCard extends StatelessWidget {
 
   final ProductModel product;
   final bool fromDetails;
-  const ProductItemCard({
+   ProductItemCard({
     Key? key,
    required this.product,required this.fromDetails
   }) : super(key: key);
 
+  final ProductsController productController = Get.find();
 
 
   @override
   Widget build(BuildContext context) {
+
     Size size = MediaQuery.of(context).size;
     double buttonSize =22;
     final screenSize = Get.size;
     return InkWell(
       onTap: (){
+         productController.getOneProductDetails(product.id!);
        if(fromDetails){
          Navigator.pushReplacement(context, MaterialPageRoute(builder: (context)=> ProductDetails(product: product,)));
        }else{
+         productController.getOneProductDetails(product.id!);
+
          Navigator.push(context, MaterialPageRoute(builder: (context)=> ProductDetails(product: product,)));
        }
       },
@@ -50,13 +57,15 @@ class ProductItemCard extends StatelessWidget {
           children: <Widget>[
             InkWell(
                 onTap: () {
+                  productController.getOneProductDetails(product.id!);
+
                   if(fromDetails){
                     Navigator.pushReplacement(context, MaterialPageRoute(builder: (context)=> ProductDetails(product: product,)));
                   }else{
                     Navigator.push(context, MaterialPageRoute(builder: (context)=> ProductDetails(product: product,)));
                   }                },
                 child: Image.network(
-                  product.imageUrl!,
+                  '$baseURL/${product.imageUrl!}',
                   fit: BoxFit.fill,
                   height: 180,
                   width: size.width / 2,
@@ -117,7 +126,10 @@ class ProductItemCard extends StatelessWidget {
               top:size.height *0.3 -56,
               child: InkWell(
                 onTap: (){
+                  productController.getOneProductDetails(product.id!);
+
                   if(fromDetails){
+
                     Navigator.pushReplacement(context, MaterialPageRoute(builder: (context)=> ProductDetails(product: product,)));
                   }else{
                     Navigator.push(context, MaterialPageRoute(builder: (context)=> ProductDetails(product: product,)));
@@ -150,26 +162,26 @@ class ProductItemCard extends StatelessWidget {
                             SizedBox(
                               width: size.width * 0.3,
                               child: Text(
-                                "${product.size}".toUpperCase(),
+                                "${product.price!.toStringAsFixed(3)} QR ".toUpperCase(),
                                 overflow: TextOverflow.ellipsis,
                                 maxLines: 1,
                                 textAlign: TextAlign.left,
                                 style: TextStyle(
                                     fontFamily: 'Montserrat-Arabic Regular',
-                                    color: Colors.grey,
-                                    fontSize: 12),
+                                    color: Colors.black,
+                                    fontSize: 13,fontWeight: FontWeight.bold),
                               ),
                             ),
                             Padding(
                               padding:
-                              const EdgeInsets.symmetric(vertical: 5.0),
+                              const EdgeInsets.symmetric(vertical: 6.0),
                               child: Text(
-                                '${product.offer}'.toUpperCase(),
+                                '${product.categoryNameEN}'.toUpperCase(),
                                 textAlign: TextAlign.right,
                                 style: TextStyle(
                                     fontFamily: 'Montserrat-Arabic Regular',
-                                    color: Colors.black.withOpacity(0.8),
-                                    fontSize: 14,fontWeight: FontWeight.bold),
+                                    color: Colors.black.withOpacity(0.7),
+                                    fontSize: 12,fontWeight: FontWeight.w500),
                               ),
                             ),
 
@@ -178,7 +190,7 @@ class ProductItemCard extends StatelessWidget {
                               child: Row(
                                 children: [
                                   Text(
-                                    "${product.price} QR".toUpperCase(),
+                                    "${(product.price)!-(product.offer!*1.0)} QR".toUpperCase(),
                                     overflow: TextOverflow.ellipsis,
                                     maxLines: 1,
                                     textAlign: TextAlign.left,
@@ -190,7 +202,7 @@ class ProductItemCard extends StatelessWidget {
                                   ),
                                   SizedBox(width: 7.0,),
                                   Text(
-                                    "Discount 30%",
+                                    "Discount ${product.offer}%",
                                     overflow: TextOverflow.ellipsis,
                                     maxLines: 1,
 
