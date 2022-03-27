@@ -18,6 +18,7 @@ import '../views/screens/main_screen.dart';
 class AccountController extends GetxController {
 
   var isLoggedIn = false.obs;
+  var username = "".obs;
 
   @override
   void onInit() {
@@ -27,21 +28,19 @@ class AccountController extends GetxController {
   }
 
 
-  Future<void> fetchUserLoginPreference() async {
-//    SharedPreferences prefs = await SharedPreferences.getInstance();
-//
-//    await prefs.setString('token', token);
-//    await prefs.setString('username', username);
-//    await prefs.setString('password', password);
-//    await prefs.setString('id', id);
+  void signOut() {
+    final storage = GetStorage();
 
+    storage.erase();
+  }
+
+  Future<void> fetchUserLoginPreference() async {
     final storage = GetStorage();
 
 
-    storage.write('token', token);
-//    storage.write('username', username);
-//    storage.write('password', password);
-//    storage.write('id', id);
+    storage.read('token');
+    username.value = storage.read('username');
+    print("ssssssssss ${username.value}");
 
   }
 
